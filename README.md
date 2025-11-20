@@ -37,6 +37,6 @@ Start the development server:
 
 This will run the app on:
 
-👉 http://localhost:3000
+👉 http://localhost:5173
 
 
