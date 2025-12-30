@@ -1,11 +1,9 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import TextInputWithLabel from "../shared/TextInputWithLabel";
 import { isValidTodoTitle } from "../utils/todoValidation";
 
 function TodoForm({ onAddTodo }) {
 	const [workingTodoTitle, setWorkingTodoTitle] = useState("");
-
-	const inputRef = useRef(null);
 
 	const handleAddTodo = (event) => {
 		event.preventDefault();
@@ -21,7 +19,6 @@ function TodoForm({ onAddTodo }) {
 				onChange={(event) => {
 					setWorkingTodoTitle(event.target.value);
 				}}
-				ref={inputRef}
 				value={workingTodoTitle}
 			/>
 			<button disabled={!isValidTodoTitle(workingTodoTitle)}>Add Todo</button>
