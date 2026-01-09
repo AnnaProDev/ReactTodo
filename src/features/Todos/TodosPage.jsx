@@ -1,49 +1,69 @@
-import {  useState } from "react";
+import { useEffect, useState } from "react";
 import TodoList from "../../features/Todos/TodoList/TodoList.jsx";
 import TodoForm from "../../features/Todos/TodoForm.jsx";
 
-const TodosPage = () => {
+const TodosPage = ({ token }) => {
 	const [todoList, setTodoList] = useState([]);
-	// const [error, setError] = useState("");
-	// const [isTodoListLoading, setIsTodoListLoading] = useState(false);
+	const [error, setError] = useState("");
+	const [isTodoListLoading, setIsTodoListLoading] = useState(false);
 
-	// const baseUrl = import.meta.env.VITE_BASE_URL;
+	const baseUrl = import.meta.env.VITE_BASE_URL;
 
-	// useEffect(() => {
-	// 	const fetchTodos = async () => {
-	// 		setIsTodoListLoading(true);
-	// 		try {
-	// 			const response = await fetch(`${baseUrl}/tasks`, {
-	// 				method: "GET",
-	// 				headers: { "X-CSRF-TOKEN": token },
-	// 				credentials: "include",
-	// 			});
-	// 			const data = await response.json();
+	useEffect(() => {
+		async function fetchTodos() {
+			setIsTodoListLoading(true);
 
-	// 			if (response.status === 401) {
-	// 				throw new Error("unauthorized");
-	// 			} else if (!response.ok) {
-	// 				throw new Error(`HTTP error ${response.status}`);
-	// 			} else if (response.status === 200) {
-	// 				const dataToDoList = data.parse.JSON;
-	// 				setTodoList(dataToDoList);
-	// 			}
-	// 		} catch (error) {
-	// 			setError(`Error: ${error.name} | ${error.message}`);
-	// 		} finally {
-	// 			setIsTodoListLoading(false);
-	// 		}
-	// 	};
-	// }, [token, baseUrl]);
+			try {
+				const response = await fetch(`${baseUrl}/tasks`, {
+					method: "GET",
+					headers: { "X-CSRF-TOKEN": token },
+					credentials: "include",
+				});
 
-	function addTodo(title) {
+				if (response.status === 401) {
+					throw new Error("Unauthorized");
+				}
+
+				if (!response.ok) {
+					throw new Error(`HTTP error ${response.status}`);
+				}
+
+				const data = await response.json();
+				setTodoList(data);
+			} catch (error) {
+				setError(`Error: ${error.name} | ${error.message}`);
+			} finally {
+				setIsTodoListLoading(false);
+			}
+		}
+
+		if (token) fetchTodos();
+	}, [token, baseUrl]);
+
+	async function addTodo(title) {
 		const newTodo = {
-			id: Date.now(),
 			title: title,
 			isCompleted: false,
 		};
 
-		setTodoList([newTodo, ...todoList]);
+		try {
+			const response = await fetch(`${baseUrl}/tasks`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				credentials: "include",
+				body: JSON.stringify(newTodo),
+			});
+			const data = await response.json();
+			console.log(data);
+			if (response.status === 200) {
+				console.log("Respond 200", data);
+			} else {
+				console.log("Remove the failed todo");
+				setError(`Error: ${error.name} | ${error.message}`);
+			}
+		} catch (error) {
+			setError(`Error: ${error.name} | ${error.message}`);
+		}
 	}
 
 	function completeTodo(id) {
@@ -72,8 +92,8 @@ const TodosPage = () => {
 
 	return (
 		<>
-			{/* <p>{error}</p>
-			<p>{isTodoListLoading ? "Loading..." : ""}</p> */}
+			<p>{error}</p>
+			<p>{isTodoListLoading ? "Loading..." : ""}</p>
 			<TodoForm onAddTodo={addTodo} />
 			<TodoList
 				todoList={todoList}

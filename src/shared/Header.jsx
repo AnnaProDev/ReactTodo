@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Header = () => {
+const Header = ({email}) => {
   return (
-	 <h1>ToDo List</h1>
+	 <h1>ToDo List for {email}</h1>
   )
 }
 
