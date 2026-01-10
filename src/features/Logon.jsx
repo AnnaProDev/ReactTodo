@@ -61,7 +61,7 @@ const Logon = ({ onSetEmail, onSetToken }) => {
 					}}
 				/>
 			</div>
-			<div color="">{authError}</div>
+			<div style={{ color: "#de1818" }}>{authError}</div>
 			<button type="submit" onClick={handleSubmit} disabled={isLoggingOn}>
 				{isLoggingOn ? "Logging in..." : "Log in"}
 			</button>

@@ -42,31 +42,54 @@ const TodosPage = ({ token }) => {
 
 	async function addTodo(title) {
 		const newTodo = {
+			id: Date.now(),
 			title: title,
 			isCompleted: false,
 		};
 
+		setTodoList((prev) => {
+			const next = [newTodo, ...prev];
+			return next;
+		});
+
 		try {
 			const response = await fetch(`${baseUrl}/tasks`, {
 				method: "POST",
-				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ title, isCompleted: false }),
+				headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": token },
 				credentials: "include",
-				body: JSON.stringify(newTodo),
 			});
 			const data = await response.json();
 			console.log(data);
-			if (response.status === 200) {
-				console.log("Respond 200", data);
+			if (response.ok) {
+				setTodoList((prev) => {
+					const renewedToDoList = prev.map((todo) =>
+						todo.id === newTodo.id ? data : todo
+					);
+					return renewedToDoList;
+				});
 			} else {
-				console.log("Remove the failed todo");
-				setError(`Error: ${error.name} | ${error.message}`);
+				setTodoList((prev) => {
+					const filteredTodoList = prev.filter(
+						(todo) => todo.id !== newTodo.id
+					);
+					return filteredTodoList;
+				});
+				setError("Error: Request failed");
 			}
 		} catch (error) {
+			setTodoList((prev) => {
+				const filteredTodoList = prev.filter((todo) => todo.id !== newTodo.id);
+				return filteredTodoList;
+			});
 			setError(`Error: ${error.name} | ${error.message}`);
 		}
 	}
 
-	function completeTodo(id) {
+	async function completeTodo(id) {
+		const originalTodo = todoList.find((todo) => todo.id === id);
+		if (!originalTodo) return;
+
 		const updatedList = todoList.map((todo) => {
 			if (todo.id === id) {
 				return { ...todo, isCompleted: true };
@@ -76,6 +99,32 @@ const TodosPage = ({ token }) => {
 		});
 
 		setTodoList(updatedList);
+
+		try {
+			const response = await fetch(`${baseUrl}/tasks/${id}`, {
+				method: "PATCH",
+				body: JSON.stringify({
+					createdTime: originalTodo.createdTime,
+					isCompleted: true,
+				}),
+				headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": token },
+				credentials: "include",
+			});
+			const data = await response.json();
+			if (!response.ok) {
+				setTodoList((prev) =>
+					prev.map((todo) => (todo.id === id ? originalTodo : todo))
+				);
+				setError(
+					`HTTP ${response.status} | ${data?.message ?? "Request failed"}`
+				);
+			}
+		} catch (error) {
+			setTodoList((prev) =>
+				prev.map((todo) => (todo.id === id ? originalTodo : todo))
+			);
+			setError(`Error: ${error.name} | ${error.message}`);
+		}
 	}
 
 	function updateTodo(editedTodo) {
@@ -92,7 +141,7 @@ const TodosPage = ({ token }) => {
 
 	return (
 		<>
-			<p>{error}</p>
+			<p style={{ color: "#de1818" }}>{error}</p>
 			<p>{isTodoListLoading ? "Loading..." : ""}</p>
 			<TodoForm onAddTodo={addTodo} />
 			<TodoList
