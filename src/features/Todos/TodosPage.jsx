@@ -127,7 +127,10 @@ const TodosPage = ({ token }) => {
 		}
 	}
 
-	function updateTodo(editedTodo) {
+	async function updateTodo(editedTodo) {
+		const originalToDo = todoList.find((todo) => todo.id === editedTodo.id);
+		if (!originalToDo) return;
+
 		const updatedTodos = todoList.map((todo) => {
 			if (todo.id === editedTodo.id) {
 				return { ...todo, ...editedTodo };
@@ -137,11 +140,38 @@ const TodosPage = ({ token }) => {
 		});
 
 		setTodoList(updatedTodos);
+
+		try {
+			const response = await fetch(`${baseUrl}/tasks/${editedTodo.id}`, {
+				method: "PATCH",
+				body: JSON.stringify({
+					title: editedTodo.title,
+					isCompleted: editedTodo.isCompleted,
+					createdTime: originalToDo.createdTime,
+				}),
+				headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": token },
+				credentials: "include",
+			});
+			if (!response.ok) {
+				setTodoList((prev) => {
+					prev.map((todo) => (todo.id === originalToDo.id ? originalToDo : todo));
+				});
+			}
+		} catch (error) {
+			setTodoList((prev) => {
+				prev.map((todo) => (todo.id === originalToDo.id ? originalToDo : todo));
+			});
+			setError(`Error: ${error.message} | ${error.message}`);
+		}
 	}
 
 	return (
 		<>
-			<p style={{ color: "#de1818" }}>{error}</p>
+			{error && <div style={{ display: "flex" }}>
+					<div style={{ color: "#de1818" }}>{error}</div>
+					<button onClick={() => setError("")} style={{ color: "#de1818" }}>Clear error</button>
+				</div>
+			}
 			<p>{isTodoListLoading ? "Loading..." : ""}</p>
 			<TodoForm onAddTodo={addTodo} />
 			<TodoList
