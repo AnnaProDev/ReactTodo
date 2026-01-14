@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import TodoList from "../../features/Todos/TodoList/TodoList.jsx";
 import TodoForm from "../../features/Todos/TodoForm.jsx";
+import SortBy from "../../shared/SortBy.jsx";
 
 const TodosPage = ({ token }) => {
 	const [todoList, setTodoList] = useState([]);
 	const [error, setError] = useState("");
 	const [isTodoListLoading, setIsTodoListLoading] = useState(false);
+	const [sortBy, setSortBy] = useState('creationDate');
+	const [sortDirection, setSortDirection] = useState('desc');
 
 	const baseUrl = import.meta.env.VITE_BASE_URL;
 
@@ -14,7 +17,12 @@ const TodosPage = ({ token }) => {
 			setIsTodoListLoading(true);
 
 			try {
-				const response = await fetch(`${baseUrl}/tasks`, {
+				const params = new URLSearchParams({
+					sortBy,
+					sortDirection,
+				});
+
+				const response = await fetch(`${baseUrl}/tasks?${params}`, {
 					method: "GET",
 					headers: { "X-CSRF-TOKEN": token },
 					credentials: "include",
@@ -30,6 +38,7 @@ const TodosPage = ({ token }) => {
 
 				const data = await response.json();
 				setTodoList(data);
+				
 			} catch (error) {
 				setError(`Error: ${error.name} | ${error.message}`);
 			} finally {
@@ -38,7 +47,7 @@ const TodosPage = ({ token }) => {
 		}
 
 		if (token) fetchTodos();
-	}, [token, baseUrl]);
+	}, [token, baseUrl, sortBy, sortDirection]);
 
 	async function addTodo(title) {
 		const newTodo = {
@@ -154,7 +163,9 @@ const TodosPage = ({ token }) => {
 			});
 			if (!response.ok) {
 				setTodoList((prev) => {
-					prev.map((todo) => (todo.id === originalToDo.id ? originalToDo : todo));
+					prev.map((todo) =>
+						todo.id === originalToDo.id ? originalToDo : todo
+					);
 				});
 			}
 		} catch (error) {
@@ -167,17 +178,26 @@ const TodosPage = ({ token }) => {
 
 	return (
 		<>
-			{error && <div style={{ display: "flex" }}>
+			{error && (
+				<div style={{ display: "flex" }}>
 					<div style={{ color: "#de1818" }}>{error}</div>
-					<button onClick={() => setError("")} style={{ color: "#de1818" }}>Clear error</button>
+					<button onClick={() => setError("")} style={{ color: "#de1818" }}>
+						Clear error
+					</button>
 				</div>
-			}
+			)}
 			<p>{isTodoListLoading ? "Loading..." : ""}</p>
 			<TodoForm onAddTodo={addTodo} />
 			<TodoList
 				todoList={todoList}
 				onCompleteTodo={completeTodo}
 				onUpdateTodo={updateTodo}
+			/>
+			<SortBy
+				sortby={sortBy}
+				sortDirection={sortDirection}
+				onSortByChange={setSortBy}
+				onSortDirectionChange={setSortDirection}
 			/>
 		</>
 	);
