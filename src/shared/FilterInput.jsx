@@ -1,4 +1,4 @@
-export const FilterInput = (filterTerm, onFilterChange) => {
+export const FilterInput = ({filterTerm, onFilterChange}) => {
 	return (
 		<div>
 			<label htmlFor="filterInput">Search todos: </label>

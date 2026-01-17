@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 function useDebounce(value, delay) {
 	const [debouncedValue, setDebouncedValue] = useState(value);
@@ -8,8 +8,11 @@ function useDebounce(value, delay) {
 			setDebouncedValue(value);
 		}, delay);
 
-		return clearTimeout(timeoutId);
+		return () => {
+			clearTimeout(timeoutId);
+		};
 	}, [value, delay]);
+
 	return debouncedValue;
 }
 

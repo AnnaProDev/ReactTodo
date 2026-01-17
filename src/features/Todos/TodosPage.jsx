@@ -19,6 +19,7 @@ const TodosPage = ({ token }) => {
 	const debouncedFilterTerm = useDebounce(filterTerm, 300);
 
 	useEffect(() => {
+
 		async function fetchTodos() {
 			setIsTodoListLoading(true);
 
@@ -203,7 +204,6 @@ const TodosPage = ({ token }) => {
 
 	const invalidateCache = useCallback(() => {
 		setDataVersion((prev) => prev + 1);
-		console.log("Invalidating memo cache after todo mutation");
 	}, []);
 
 	return (
@@ -234,7 +234,7 @@ const TodosPage = ({ token }) => {
 						}}
 						style={{ color: "#de1818" }}
 					>
-						Clear Filter Error
+						Reset Filters
 					</button>
 				</div>
 			)}
@@ -246,7 +246,7 @@ const TodosPage = ({ token }) => {
 				onUpdateTodo={updateTodo}
 				dataVersion={dataVersion}
 			/>
-			<FilterInput onFilterChange={handleFilterChange} />
+			<FilterInput filterTerm = {filterTerm} onFilterChange={handleFilterChange} />
 			<SortBy
 				sortby={sortBy}
 				sortDirection={sortDirection}
