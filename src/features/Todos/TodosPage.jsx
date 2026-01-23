@@ -9,9 +9,12 @@ import TodoForm from "../../features/Todos/TodoForm.jsx";
 import SortBy from "../../shared/SortBy.jsx";
 import useDebounce from "../../utils/useDebounce.js";
 import FilterInput from "../../shared/FilterInput.jsx";
+import { useAuth } from "../../contexts/AuthContext.jsx";
 
-const TodosPage = ({ token }) => {
+const TodosPage = () => {
 	const [state, dispatch] = useReducer(todoReducer, initialTodoState);
+
+	const { token } = useAuth();
 
 	const {
 		todoList,
@@ -55,6 +58,17 @@ const TodosPage = ({ token }) => {
 					throw new Error("Unauthorized");
 				}
 
+				if (response.status === 404) {
+					dispatch({
+						type: TODO_ACTIONS.FETCH_ERROR,
+						payload: {
+							message: "No todos found",
+							isFilteringOrSorting: true,
+						},
+					});
+					return;
+				}
+
 				if (!response.ok) {
 					throw new Error(`HTTP error ${response.status}`);
 				}
@@ -70,8 +84,8 @@ const TodosPage = ({ token }) => {
 
 				const isFilteringOrSorting =
 					debouncedFilterTerm ||
-					sortBy !== "createdDate" ||
-					sortDirection !== "asc";
+					sortBy !== "creationDate" ||
+					sortDirection !== "desc";
 
 				dispatch({
 					type: TODO_ACTIONS.FETCH_ERROR,
@@ -204,7 +218,6 @@ const TodosPage = ({ token }) => {
 					},
 				});
 			}
-			invalidateCache();
 		} catch (error) {
 			dispatch({
 				type: TODO_ACTIONS.UPDATE_TODO_ERROR,
@@ -246,7 +259,7 @@ const TodosPage = ({ token }) => {
 			)}
 			{filterError && (
 				<div>
-					<p>Error filtering/sorting todos:{filterError.message}</p>
+					<p>Error filtering/sorting todos:{filterError}</p>
 					<button
 						onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_FILTER_ERROR })}
 						style={{ color: "#de1818" }}

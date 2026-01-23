@@ -1,39 +1,25 @@
 import { useState } from "react";
+import { useAuth } from "./../contexts/AuthContext"
 
-const Logon = ({ onSetEmail, onSetToken }) => {
+const Logon = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [authError, setAuthError] = useState("");
-	const [isLoggingOn, setIsLoggingOn] = useState(false);
+	const [formError, setFormError] = useState("");
 
 
-	const baseUrl = import.meta.env.VITE_BASE_URL;
+	const { login, isAuthenticated } = useAuth();
 
-	const handleSubmit = async (event) => {
 
-		event.preventDefault();
-		setIsLoggingOn(true)
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setFormError("");
 
-		try {
-			const response = await fetch(`${baseUrl}/user/logon`, {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				credentials: "include",
-				body: JSON.stringify({ email, password }),
-			});
-			const data = await response.json();
-			if (response.status === 200 && data.name && data.csrfToken) {
-				onSetEmail(data.name);
-				onSetToken(data.csrfToken);
-			} else {
-				setAuthError(`Authentication failed: ${data?.message}`);
-			}
-		} catch (error) {
-			setAuthError(`Error: ${error.name} | ${error.message}`);
-		} finally {
-			setIsLoggingOn(false);
-		}
-	};
+    const result = await login(email, password);
+
+    if (!result.success) {
+      setFormError(result.error);
+    }
+  };
 
 	return (
 		<div className="auth_form">
@@ -61,9 +47,9 @@ const Logon = ({ onSetEmail, onSetToken }) => {
 					}}
 				/>
 			</div>
-			<div style={{ color: "#de1818" }}>{authError}</div>
-			<button type="submit" onClick={handleSubmit} disabled={isLoggingOn}>
-				{isLoggingOn ? "Logging in..." : "Log in"}
+			<div style={{ color: "#de1818" }}>{formError}</div>
+			<button type="submit" onClick={handleSubmit} disabled={isAuthenticated}>
+				{isAuthenticated ? "Logging in..." : "Log in"}
 			</button>
 		</div>
 	);
