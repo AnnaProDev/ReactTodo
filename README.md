@@ -32,11 +32,11 @@ Make sure you have **Node.js** and **npm** installed.
 
 Start the development server:
    ```bash
-   npm start
+   npm run dev
    ```
 
 This will run the app on:
 
-👉 http://localhost:5173
+👉 http://localhost:3001
 
 
