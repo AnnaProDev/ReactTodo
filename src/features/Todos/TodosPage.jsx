@@ -137,24 +137,18 @@ const TodosPage = () => {
 		const originalTodo = todoList.find((todo) => todo.id === id);
 		if (!originalTodo) return;
 
-		const updatedList = todoList.map((todo) => {
-			if (todo.id === id) {
-				return { ...todo, isCompleted: true };
-			} else {
-				return todo;
-			}
-		});
+		const updatedList = todoList.filter((todo) => todo.id !== id);
 
 		dispatch({ type: TODO_ACTIONS.COMPLETE_TODO_START, payload: updatedList });
 
 		try {
 			const response = await fetch(`${baseUrl}/tasks/${id}`, {
-				method: "PATCH",
-				body: JSON.stringify({
-					createdTime: originalTodo.createdTime,
-					isCompleted: true,
-				}),
-				headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": token },
+				method: "DELETE",
+				// body: JSON.stringify({
+				// 	createdTime: originalTodo.createdTime,
+				// 	isCompleted: true,
+				// }),
+				headers: {  "X-CSRF-TOKEN": token },
 				credentials: "include",
 			});
 
