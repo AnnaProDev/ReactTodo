@@ -5,16 +5,16 @@ const Header = () => {
 	const { isAuthenticated, email } = useAuth();
 
 	return (
-		<>
-			<h1>ToDo List</h1>
+		<div className="header">
+			<h1 className="title">ToDo List</h1>
 			{isAuthenticated && 
 			<> 
-			<p>{email} is logged on.</p>
+			<p className="subtitle">{email} is logged on.</p>
 			<Logoff />
 			</>
 			
 			}
-		</>
+		</div>
 	);
 };
 

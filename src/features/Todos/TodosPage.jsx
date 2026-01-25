@@ -137,18 +137,24 @@ const TodosPage = () => {
 		const originalTodo = todoList.find((todo) => todo.id === id);
 		if (!originalTodo) return;
 
-		const updatedList = todoList.filter((todo) => todo.id !== id);
+		const updatedList = todoList.map((todo) => {
+			if (todo.id === id) {
+				return { ...todo, isCompleted: true };
+			} else {
+				return todo;
+			}
+		});
 
 		dispatch({ type: TODO_ACTIONS.COMPLETE_TODO_START, payload: updatedList });
 
 		try {
 			const response = await fetch(`${baseUrl}/tasks/${id}`, {
-				method: "DELETE",
-				// body: JSON.stringify({
-				// 	createdTime: originalTodo.createdTime,
-				// 	isCompleted: true,
-				// }),
-				headers: {  "X-CSRF-TOKEN": token },
+				method: "PATCH",
+				body: JSON.stringify({
+					createdTime: originalTodo.createdTime,
+					isCompleted: true,
+				}),
+				headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": token },
 				credentials: "include",
 			});
 
@@ -220,6 +226,43 @@ const TodosPage = () => {
 		}
 	}
 
+	async function deleteTodo(id) {
+		const originalToDo = todoList.find((todo) => todo.id === id);
+		if (!originalToDo) return;
+
+		const updatedTodos = todoList.filter((todo) => todo.id !== originalToDo.id);
+		
+
+		dispatch({ type: TODO_ACTIONS.DELETE_TODO_START, payload: updatedTodos });
+
+		try {
+			const response = await fetch(`${baseUrl}/tasks/${id}`, {
+				method: "DELETE",
+				headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": token },
+				credentials: "include",
+			});
+			if (response.ok) {
+				dispatch({ type: TODO_ACTIONS.DELETE_TODO_SUCCESS });
+				invalidateCache();
+			}
+			if (!response.ok) {
+				dispatch({
+					type: TODO_ACTIONS.DELETE_TODO_ERROR,
+					payload: {
+						id: id,
+						originalToDo,
+						error: { name: "Request", message: "Request failed" },
+					},
+				});
+			}
+		} catch (error) {
+			dispatch({
+				type: TODO_ACTIONS.DELETE_TODO_ERROR,
+				payload: { id: id, originalToDo, error },
+			});
+		}
+	}
+
 	function handleFilterChange(newTerm) {
 		dispatch({ type: TODO_ACTIONS.SET_FILTER, payload: newTerm });
 	}
@@ -241,11 +284,11 @@ const TodosPage = () => {
 	return (
 		<>
 			{error && (
-				<div style={{ display: "flex" }}>
-					<div style={{ color: "#de1818" }}>{error}</div>
+				<div className="errorRow">
+					<div className="errorText">{error}</div>
 					<button
 						onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_ERROR })}
-						style={{ color: "#de1818" }}
+						className="btn btn--danger"
 					>
 						Clear error
 					</button>
@@ -253,20 +296,14 @@ const TodosPage = () => {
 			)}
 			{filterError && (
 				<div>
-					<p>Error filtering/sorting todos:{filterError}</p>
+					<p className="errorText">
+						Error filtering/sorting todos: {filterError}
+					</p>
 					<button
 						onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_FILTER_ERROR })}
-						style={{ color: "#de1818" }}
+						className="btn btn--danger"
 					>
 						Clear Filter Error
-					</button>
-					<button
-						onClick={() => {
-							dispatch({ type: TODO_ACTIONS.RESET_FILTERS });
-						}}
-						style={{ color: "#de1818" }}
-					>
-						Reset Filters
 					</button>
 				</div>
 			)}
@@ -277,11 +314,23 @@ const TodosPage = () => {
 				onCompleteTodo={completeTodo}
 				onUpdateTodo={updateTodo}
 				dataVersion={dataVersion}
+				onDeleteTodo={deleteTodo}
 			/>
-			<FilterInput
-				filterTerm={filterTerm}
-				onFilterChange={handleFilterChange}
-			/>
+			<div className="row row--actions">
+				<FilterInput
+					filterTerm={filterTerm}
+					onFilterChange={handleFilterChange}
+				/>
+
+				<button
+					type="button"
+					className="btn"
+					onClick={() => dispatch({ type: TODO_ACTIONS.RESET_FILTERS })}
+					disabled={!filterTerm}
+				>
+					Reset filter
+				</button>
+			</div>
 			<SortBy
 				sortby={sortBy}
 				sortDirection={sortDirection}

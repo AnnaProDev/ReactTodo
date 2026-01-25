@@ -24,7 +24,7 @@ const Logon = () => {
 	return (
 		<div className="auth_form">
 			<div>
-				<label htmlFor="email">Email: </label>
+				<label className="label" tmlFor="email">Email: </label>
 				<input
 					required
 					type="email"
@@ -32,10 +32,11 @@ const Logon = () => {
 					onChange={(event) => {
 						setEmail(event.target.value);
 					}}
+					className="input"
 				/>
 			</div>
 			<div>
-				<label htmlFor="password">Password: </label>
+				<label className="label" htmlFor="password">Password: </label>
 				<input
 					required
 					type="password"
@@ -45,10 +46,11 @@ const Logon = () => {
 					onChange={(event) => {
 						setPassword(event.target.value);
 					}}
+					className="input"
 				/>
 			</div>
 			<div style={{ color: "#de1818" }}>{formError}</div>
-			<button type="submit" onClick={handleSubmit} disabled={isAuthenticated}>
+			<button className="btn" type="submit" onClick={handleSubmit} disabled={isAuthenticated}>
 				{isAuthenticated ? "Logging in..." : "Log in"}
 			</button>
 		</div>

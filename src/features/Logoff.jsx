@@ -13,7 +13,7 @@ const handleLogout = async () => {
 
   return (
 	 <div>
-		<button onClick={handleLogout}>Logoff</button>
+		<button className="btn btn--secondary" onClick={handleLogout}>Logoff</button>
 	 </div>
   )
 }

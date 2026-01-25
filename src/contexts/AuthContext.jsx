@@ -6,7 +6,7 @@ const AuthContext = createContext();
 // Custom hook with error checking
 export function useAuth() {
 	const context = useContext(AuthContext);
-	console.log('Auth context:', context); 
+	console.log("Auth context:", context);
 	if (!context) {
 		throw new Error("useAuth must be used within an AuthProvider");
 	}
@@ -15,12 +15,8 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
 	// State for authentication
-	const [email, setEmail] = useState(
-		() => localStorage.getItem("auth_email") || "",
-	);
-	const [token, setToken] = useState(
-		() => localStorage.getItem("auth_token") || "",
-	);
+	const [email, setEmail] = useState(localStorage.getItem("auth_email") ?? "");
+	const [token, setToken] = useState(localStorage.getItem("auth_token") ?? "");
 
 	const baseUrl = import.meta.env.VITE_BASE_URL;
 
@@ -58,12 +54,16 @@ export function AuthProvider({ children }) {
 		}
 	};
 
+	const clearAuth = () => {
+		setEmail("");
+		setToken("");
+		localStorage.removeItem("auth_email");
+		localStorage.removeItem("auth_token");
+	};
+
 	const logout = async () => {
 		if (!token) {
-			setEmail("");
-			setToken("");
-			localStorage.removeItem("auth_email");
-			localStorage.removeItem("auth_token");
+			clearAuth();
 			return { success: true };
 		}
 
@@ -77,10 +77,7 @@ export function AuthProvider({ children }) {
 			const res = await fetch(`${baseUrl}/user/logoff`, options);
 
 			if (res.ok) {
-				setEmail("");
-				setToken("");
-				localStorage.removeItem("auth_email");
-				localStorage.removeItem("auth_token");
+				clearAuth();
 				return { success: true };
 			} else {
 				// Failure: Return error
@@ -94,6 +91,8 @@ export function AuthProvider({ children }) {
 				success: false,
 				error: `Network error during logout: ${error.message}`,
 			};
+		} finally {
+			clearAuth();
 		}
 	};
 

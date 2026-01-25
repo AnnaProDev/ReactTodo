@@ -40,8 +40,8 @@ export const initialTodoState = {
 };
 
 export function todoReducer(state, action) {
-	console.log('Dispatched action:', action.type, action.payload);
-	console.log(state)
+	console.log("Dispatched action:", action.type, action.payload);
+	console.log(state);
 	switch (action.type) {
 		// ---------------- FETCH ----------------
 		case TODO_ACTIONS.FETCH_START:
@@ -67,9 +67,7 @@ export function todoReducer(state, action) {
 				error: action.payload?.isFilteringOrSorting
 					? ""
 					: `Error fetching todos: ${message}`,
-				filterError: action.payload?.isFilteringOrSorting
-					? message
-					: "",
+				filterError: action.payload?.isFilteringOrSorting ? message : "",
 			};
 		}
 		// ---------------- ADD ----------------
@@ -134,18 +132,35 @@ export function todoReducer(state, action) {
 				),
 				error: `Error: ${action.payload.error.name} | ${action.payload.error.message}`,
 			};
+		// ---------------- DELETE ----------------
+		case TODO_ACTIONS.DELETE_TODO_START:
+			return {
+				...state,
+				todoList: Array.isArray(action.payload) ? action.payload : state.todoList,
+			};
+		case TODO_ACTIONS.DELETE_TODO_SUCCESS:
+			return {
+				...state,
+				error: "",
+			};
+		case TODO_ACTIONS.DELETE_TODO_ERROR:
+			return {
+				...state,
+				todoList: [action.payload.originalToDo, ...state.todoList],
+				error: `Error: ${action.payload.error.name} | ${action.payload.error.message}`,
+			};
 		// ---------------- UI ----------------
 		case TODO_ACTIONS.SET_SORT:
 			return {
 				...state,
 				sortBy: action.payload.sortBy,
 				sortDirection: action.payload.sortDirection,
-				filterError: ""
+				filterError: "",
 			};
 		case TODO_ACTIONS.SET_FILTER:
 			return {
 				...state,
-				filterTerm: action.payload
+				filterTerm: action.payload,
 			};
 		case TODO_ACTIONS.CLEAR_ERROR:
 			return {
@@ -168,7 +183,7 @@ export function todoReducer(state, action) {
 		case TODO_ACTIONS.BUMP_DATA_VERSION:
 			return {
 				...state,
-				dataVersion: state.dataVersion + 1
+				dataVersion: state.dataVersion + 1,
 			};
 		default:
 			throw new Error(`Unknown action type: ${action.type}`);
