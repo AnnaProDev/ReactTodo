@@ -230,8 +230,7 @@ const TodosPage = () => {
 		const originalToDo = todoList.find((todo) => todo.id === id);
 		if (!originalToDo) return;
 
-		const updatedTodos = todoList.filter((todo) => todo.id !== originalToDo.id);
-		
+		const updatedTodos = todoList.filter((todo) => todo.id !== id);
 
 		dispatch({ type: TODO_ACTIONS.DELETE_TODO_START, payload: updatedTodos });
 
