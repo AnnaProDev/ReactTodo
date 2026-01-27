@@ -1,7 +1,7 @@
 export const FilterInput = ({filterTerm, onFilterChange}) => {
 	return (
 		<div>
-			<label htmlFor="filterInput">Search todos: </label>
+			<label className="label" htmlFor="filterInput">Search todos: </label>
 			<input
 				type="text"
 				name="filterInput"
@@ -11,6 +11,7 @@ export const FilterInput = ({filterTerm, onFilterChange}) => {
 					onFilterChange(e.target.value);
 				}}
 				placeholder='Search by title...'
+				className="input"
 			/>
 		</div>
 	);

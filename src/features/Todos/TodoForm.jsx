@@ -12,7 +12,7 @@ function TodoForm({ onAddTodo }) {
 	};
 
 	return (
-		<form onSubmit={handleAddTodo}>
+		<form className="row row--actions" onSubmit={handleAddTodo}>
 			<TextInputWithLabel
 				elementId={"todoTitle"}
 				labelText={"Todo "}
@@ -21,7 +21,7 @@ function TodoForm({ onAddTodo }) {
 				}}
 				value={workingTodoTitle}
 			/>
-			<button disabled={!isValidTodoTitle(workingTodoTitle)}>Add Todo</button>
+			<button className="btn" disabled={!isValidTodoTitle(workingTodoTitle)}>Add Todo</button>
 		</form>
 	);
 }
