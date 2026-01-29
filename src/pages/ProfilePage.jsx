@@ -1,74 +1,112 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useAuth } from "../contexts/AuthContext.jsx";
 
 const ProfilePage = () => {
-	const { email, token } = useAuth();
+	const { email, token, isAuthenticated } = useAuth();
+	const [todoStats, setTodoStats] = useState({
+		total: 0,
+		completed: 0,
+		active: 0,
+	});
+	const [isLoading, setLoading] = useState(false);
+	const [error, setError] = useState();
 
-	const [totalCount, setTotalCount] = useState(0);
-	const [completedCount, setCompletedCount] = useState(0);
-	const [activeCount, setActiveCount] = useState(0);
 
 	const baseUrl = import.meta.env.VITE_BASE_URL;
 
 	useEffect(() => {
-		async function fetchTodosStats() {
+		async function fetchTodoStats() {
+			if (!token) return;
+
 			try {
-				const response = await fetch(`${baseUrl}/tasks`, {
+				setLoading(true);
+				setError("");
+
+				const options = {
 					method: "GET",
 					headers: { "X-CSRF-TOKEN": token },
 					credentials: "include",
-				});
+				};
 
-				if (!response.ok) {
-					throw new Error(`HTTP error ${response.status}`);
+				const response = await fetch(`${baseUrl}/tasks`, options);
+
+				if (response.status === 401) {
+					throw new Error("Unauthorized");
 				}
 
-				const data = await response.json();
+				if (!response.ok) {
+					throw new Error("Failed to fetch todos");
+				}
 
-				console.log("Profile data: ", data);
+				const todos = await response.json();
 
-				const total = data.length;
-
-				const completed = data.filter((todo) => todo.isCompleted).length;
-
+				// Calculate statistics
+				const total = todos.length;
+				const completed = todos.filter((todo) => todo.isCompleted).length;
 				const active = total - completed;
 
-				setTotalCount(total);
-				setCompletedCount(completed);
-				setActiveCount(active);
-
-			} catch (error) {
-				console.log(error?.message ?? "Unknown error");
+				setTodoStats({ total, completed, active });
+			} catch (err) {
+				setError(`Error loading statistics: ${err.message}`);
+			} finally {
+				setLoading(false);
 			}
 		}
 
-		if (token) fetchTodosStats();
-	}, [token, baseUrl]);
+		fetchTodoStats();
+	}, [token, baseUrl, setTodoStats]);
 
-  return (
-    <div className="card">
-      <div className="header">
-        <div>
-          <h1 className="title">Profile</h1>
-          <p className="subtitle">Your info and todo statistics</p>
-        </div>
-      </div>
 
-      <div className="section">
-        <h2 className="sectionTitle">User</h2>
-        <p>
-          <span className="label">Name: {email}</span> 
-        </p>
-      </div>
+	const completionPercent = useMemo(() => {
+		if (todoStats.total === 0) return 0;
+		return Math.round((todoStats.completed / todoStats.total) * 100);
+	}, [todoStats.total, todoStats.completed]);
 
-      <div className="section">
-        <h2 className="sectionTitle">Todo stats</h2>
-        <p>Total: {totalCount}</p>
-        <p>Completed: {completedCount}</p>
-        <p>Active: {activeCount}</p>
-      </div>
-    </div>
-  );
+	return (
+		<div className="card">
+			<div className="header">
+				<div>
+					<h1 className="title">Profile</h1>
+					<p className="subtitle">Your info and todo statistics</p>
+				</div>
+			</div>
+
+			<div className="section">
+				<h2 className="sectionTitle">User</h2>
+				<p>
+					<span>Name: {email}</span>
+				</p>
+				<p>
+					<span >Status: {isAuthenticated ? "Authenticated" : "Guest"}</span>
+					
+				</p>
+			</div>
+
+			<div className="section">
+				<h2 className="sectionTitle">Todo stats</h2>
+				{error && (
+					<div className="errorRow">
+						<div className="errorText">{error}</div>
+					</div>
+				)}
+				{isLoading ? (
+					<p>Loading ...</p>
+				) : (
+					<>
+						<p>Total: {todoStats.total}</p>
+						<p>Completed: {todoStats.completed}</p>
+						<p>Active: {todoStats.active}</p>
+
+						{todoStats.total > 0 ? (
+							<p>Completion: {completionPercent}%</p>
+						) : (
+							<p className="subtitle">No todos yet.</p>
+						)}
+					</>
+				)}
+			</div>
+		</div>
+	);
 };
 
 export default ProfilePage;
