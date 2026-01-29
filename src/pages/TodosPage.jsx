@@ -3,13 +3,13 @@ import {
 	todoReducer,
 	initialTodoState,
 	TODO_ACTIONS,
-} from "../../reducers/todoReducer";
-import TodoList from "../../features/Todos/TodoList/TodoList.jsx";
-import TodoForm from "../../features/Todos/TodoForm.jsx";
-import SortBy from "../../shared/SortBy.jsx";
-import useDebounce from "../../utils/useDebounce.js";
-import FilterInput from "../../shared/FilterInput.jsx";
-import { useAuth } from "../../contexts/AuthContext.jsx";
+} from "../reducers/todoReducer.js";
+import TodoList from "../features/Todos/TodoList/TodoList.jsx";
+import TodoForm from "../features/Todos/TodoForm.jsx";
+import SortBy from "../shared/SortBy.jsx";
+import useDebounce from "../utils/useDebounce.js";
+import FilterInput from "../shared/FilterInput.jsx";
+import { useAuth } from "../contexts/AuthContext.jsx";
 
 const TodosPage = () => {
 	const [state, dispatch] = useReducer(todoReducer, initialTodoState);
