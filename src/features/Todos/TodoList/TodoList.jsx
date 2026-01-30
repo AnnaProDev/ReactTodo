@@ -7,18 +7,48 @@ function TodoList({
 	onUpdateTodo,
 	onDeleteTodo,
 	dataVersion,
+	statusFilter = "active",
 }) {
 	const filteredTodoList = useMemo(() => {
+		console.log(
+			`Recalculating filtered todos (v${dataVersion}) - Status: ${statusFilter}`,
+		);
+
+		let filteredTodos;
+		switch (statusFilter) {
+			case "completed":
+				filteredTodos = todoList.filter((todo) => todo.isCompleted);
+				break;
+			case "active":
+				filteredTodos = todoList.filter((todo) => !todo.isCompleted);
+				break;
+			case "all":
+			default:
+				filteredTodos = todoList;
+				break;
+		}
 		return {
 			version: dataVersion,
-			todos: todoList,
+			todos: filteredTodos,
 		};
-	}, [dataVersion, todoList]);
+	}, [dataVersion, todoList, statusFilter]);
+
+	const getEmptyMessage = () => {
+		switch (statusFilter) {
+			case "completed":
+				return "No completed todos yet. Complete some tasks to see them here.";
+			case "active":
+				return "No active todos. Add a todo above to get started.";
+			case "all":
+			default:
+				return "Add todo above to get started.";
+		}
+	};
 
 	return (
 		<>
 			{filteredTodoList.todos.length === 0 ? (
-				<p>Add todo above to get started</p>
+				<p>{getEmptyMessage()}</p>
 			) : (
 				<ul className="todoList">
 					{filteredTodoList.todos.map((todo) => (
@@ -29,7 +59,7 @@ function TodoList({
 							onUpdateTodo={onUpdateTodo}
 							onDeleteTodo={onDeleteTodo}
 						/>
-					))}{" "}
+					))}
 				</ul>
 			)}
 		</>
