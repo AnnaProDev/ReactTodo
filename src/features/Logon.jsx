@@ -22,7 +22,7 @@ const Logon = () => {
 	return (
 		<div className="auth_form">
 			<div>
-				<label className="label" tmlFor="email">
+				<label className="label" htmlFor="email">
 					Email:{" "}
 				</label>
 				<input
