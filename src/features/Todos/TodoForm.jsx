@@ -1,6 +1,9 @@
 import { useState } from "react";
 import TextInputWithLabel from "../../shared/TextInputWithLabel";
 import { isValidTodoTitle } from "../../utils/todoValidation";
+import controls from "../../shared/styles/controls.module.css"
+import layout from "../../shared/styles/layout.module.css"
+import clsx from "clsx";
 
 function TodoForm({ onAddTodo }) {
 	const [workingTodoTitle, setWorkingTodoTitle] = useState("");
@@ -12,7 +15,7 @@ function TodoForm({ onAddTodo }) {
 	};
 
 	return (
-		<form className="row row--actions" onSubmit={handleAddTodo}>
+		<form className={clsx(layout.row, layout.rowActions)} onSubmit={handleAddTodo}>
 			<TextInputWithLabel
 				elementId={"todoTitle"}
 				labelText={"Todo "}
@@ -21,7 +24,7 @@ function TodoForm({ onAddTodo }) {
 				}}
 				value={workingTodoTitle}
 			/>
-			<button className="btn" disabled={!isValidTodoTitle(workingTodoTitle)}>Add Todo</button>
+			<button className={controls.btn} disabled={!isValidTodoTitle(workingTodoTitle)}>Add Todo</button>
 		</form>
 	);
 }

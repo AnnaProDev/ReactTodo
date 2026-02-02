@@ -1,0 +1,108 @@
+.label {
+	font-size: 13px;
+	color: var(--muted);
+	font-weight: 600;
+}
+
+.input,
+.select {
+	width: 100%;
+	padding: 11px 12px;
+	border: 1px solid var(--border);
+	background: #fff;
+	border-radius: 12px;
+	font-size: 14px;
+	outline: none;
+	transition:
+		box-shadow 0.15s ease,
+		border-color 0.15s ease,
+		transform 0.05s ease;
+}
+
+.input::placeholder {
+	color: #9ca3af;
+}
+
+.input:focus,
+.select:focus {
+	border-color: rgba(99, 102, 241, 0.55);
+	box-shadow: var(--focus);
+}
+
+/* ========== Buttons ========== */
+.btn {
+	display: block;
+
+	height: 42px;
+	padding: 0 14px;
+	margin: 0 10px;
+	border-radius: 12px;
+	border: 1px solid transparent;
+
+	background: var(--primary);
+	color: #fff;
+	font-size: 14px;
+	font-weight: 700;
+
+	cursor: pointer;
+	user-select: none;
+
+	box-shadow: var(--shadow-soft);
+	transition:
+		transform 0.05s ease,
+		box-shadow 0.15s ease,
+		background 0.15s ease;
+}
+
+.btnMulti {
+	display: flex;
+}
+.btn:hover {
+	background: var(--primary-hover);
+	box-shadow: 0 10px 25px rgba(99, 102, 241, 0.22);
+}
+
+.btn:active {
+	transform: translateY(1px);
+}
+
+.btn:focus-visible {
+	outline: none;
+	box-shadow: var(--focus), var(--shadow-soft);
+}
+
+.btn:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+	box-shadow: none;
+}
+
+.btnSecondary {
+	background: #f3f4f6;
+	color: var(--text);
+	border-color: var(--border);
+	box-shadow: none;
+}
+
+.btnSecondary:hover {
+	background: #eaecef;
+}
+
+.btnDanger {
+	background: var(--danger);
+}
+
+.btnDanger:hover {
+	background: #dc2626;
+}
+
+.btnGhost {
+	background: transparent;
+	color: var(--text);
+	border-color: var(--border);
+	box-shadow: none;
+}
+
+.btnGhost:hover {
+	background: #f3f4f6;
+}

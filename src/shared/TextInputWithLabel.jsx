@@ -1,3 +1,5 @@
+import controls from "../shared/styles/controls.module.css"
+
 function TextInputWithLabel({ elementId, labelText, onChange, value }) {
 	return (
 		<div>
@@ -7,7 +9,7 @@ function TextInputWithLabel({ elementId, labelText, onChange, value }) {
 				id={elementId}
 				value={value}
 				onChange={onChange}
-				className="input"
+				className={controls.input}
 			/>
 		</div>
 	);

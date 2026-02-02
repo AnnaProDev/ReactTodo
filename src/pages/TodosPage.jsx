@@ -4,6 +4,7 @@ import {
 	todoReducer,
 	initialTodoState,
 	TODO_ACTIONS,
+<<<<<<< HEAD:src/pages/TodosPage.jsx
 } from "../reducers/todoReducer.js";
 import TodoList from "../features/Todos/TodoList/TodoList.jsx";
 import TodoForm from "../features/Todos/TodoForm.jsx";
@@ -12,6 +13,19 @@ import useDebounce from "../utils/useDebounce.js";
 import FilterInput from "../shared/FilterInput.jsx";
 import { useAuth } from "../contexts/AuthContext.jsx";
 import StatusFilter from "../shared/StatusFilter.jsx";
+=======
+} from "../../reducers/todoReducer";
+import TodoList from "../../features/Todos/TodoList/TodoList.jsx";
+import TodoForm from "../../features/Todos/TodoForm.jsx";
+import SortBy from "../../shared/SortBy.jsx";
+import useDebounce from "../../utils/useDebounce.js";
+import FilterInput from "../../shared/FilterInput.jsx";
+import { useAuth } from "../../contexts/AuthContext.jsx";
+import Loading from "../../shared/Loading.jsx";
+import clsx from "clsx";
+import controls from "../../shared/styles/controls.module.css"
+import layout from "../../shared/styles/layout.module.css"
+>>>>>>> 7a6b18f (w12: css modules + loading + layout refactor):src/features/Todos/TodosPage.jsx
 
 const TodosPage = () => {
 	const { token } = useAuth();
@@ -293,7 +307,7 @@ const TodosPage = () => {
 					<div className="errorText">{error}</div>
 					<button
 						onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_ERROR })}
-						className="btn btn--danger"
+						className={clsx(controls.btn, controls.btnDanger) }
 					>
 						Clear error
 					</button>
@@ -306,12 +320,13 @@ const TodosPage = () => {
 					</p>
 					<button
 						onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_FILTER_ERROR })}
-						className="btn btn--danger"
+						className={clsx(controls.btn, controls.btnDanger) }
 					>
 						Clear Filter Error
 					</button>
 				</div>
 			)}
+<<<<<<< HEAD:src/pages/TodosPage.jsx
 
 			<p>{isTodoListLoading ? "Loading..." : ""}</p>
 
@@ -325,6 +340,18 @@ const TodosPage = () => {
 			<StatusFilter />
 
 			<div className="row row--actions">
+=======
+			<p>{isTodoListLoading && <Loading/>}</p>
+			<TodoForm onAddTodo={addTodo} />
+			<TodoList
+				todoList={todoList}
+				onCompleteTodo={completeTodo}
+				onUpdateTodo={updateTodo}
+				dataVersion={dataVersion}
+				onDeleteTodo={deleteTodo}
+			/>
+			<div className={clsx(layout.row, layout.rowActions)}>
+>>>>>>> 7a6b18f (w12: css modules + loading + layout refactor):src/features/Todos/TodosPage.jsx
 				<FilterInput
 					filterTerm={filterTerm}
 					onFilterChange={handleFilterChange}
@@ -332,7 +359,7 @@ const TodosPage = () => {
 
 				<button
 					type="button"
-					className="btn"
+					className={controls.btn}
 					onClick={() => dispatch({ type: TODO_ACTIONS.RESET_FILTERS })}
 					disabled={!filterTerm}
 				>

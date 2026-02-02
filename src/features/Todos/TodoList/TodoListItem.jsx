@@ -1,6 +1,9 @@
 import TextInputWithLabel from "../../../shared/TextInputWithLabel";
 import { isValidTodoTitle } from "../../../utils/todoValidation";
 import { useEditableTitle } from "../../../hooks/useEditableTitle";
+import styles from "./TodoListItem.module.css"
+import controls from "../../../shared/styles/controls.module.css"
+import clsx from "clsx";
 
 function TodoListItem({ todo, onCompleteTodo, onUpdateTodo, onDeleteTodo }) {
 	const {
@@ -21,7 +24,7 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo, onDeleteTodo }) {
 
 	return (
 		<li>
-			<form onSubmit={handleUpdate} className="todoItem">
+			<form onSubmit={handleUpdate} className={styles.todoItem}>
 				{isEditing ? (
 					<>
 						<TextInputWithLabel
@@ -29,17 +32,17 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo, onDeleteTodo }) {
 							onChange={(event) => updateTitle(event.target.value)}
 						/>
 
-						<div className="btn--multi">
+						<div className={controls.btnMulti}>
 							<button
 								type="button"
 								disabled={!isValidTodoTitle(workingTitle)}
 								onClick={handleUpdate}
-								className="btn btn--ghost"
+								className={clsx(controls.btn, controls.btnGhost)}
 							>
 								Update
 							</button>
 							<button
-								className="btn btn--ghost"
+								className={clsx(controls.btn, controls.btnGhost)}
 								type="button"
 								onClick={cancelEdit}
 							>
@@ -56,16 +59,16 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo, onDeleteTodo }) {
 									id={`checkbox${todo.id}`}
 									checked={todo.isCompleted}
 									onChange={() => onCompleteTodo(todo.id)}
-									className="checkbox"
+									className={styles.checkbox}
 								/>
 							</label>
-							<span className="todoText" onClick={startEditing}>
+							<span className={styles.todoText} onClick={startEditing}>
 								{todo.title}
 							</span>
 						</div>
 						<button
 							type="button"
-							className="btn btn--ghost"
+							className={clsx(controls.btn, controls.btnGhost)}
 							onClick={() => onDeleteTodo(todo.id)}
 						>
 							Delete
