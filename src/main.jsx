@@ -1,11 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-<<<<<<< HEAD
-import {BrowserRouter} from 'react-router';
-import "./index.css";
-=======
+import {BrowserRouter} from "react-router"
 import "./styles/global.css";
->>>>>>> 7a6b18f (w12: css modules + loading + layout refactor)
+
 import App from "./App.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 

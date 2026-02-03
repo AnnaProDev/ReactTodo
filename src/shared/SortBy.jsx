@@ -1,4 +1,5 @@
 import controls from "../shared/styles/controls.module.css"
+import styles from "./SortBy.module.css"
 
 const SortBy = ({
 	sortBy,
@@ -7,7 +8,7 @@ const SortBy = ({
 	onSortDirectionChange,
 }) => {
 	return (
-		<div className="filters">
+		<div className={styles.filters}>
 			<div>
 				<label className={controls.label} htmlFor="sortBy">
 					Sort by

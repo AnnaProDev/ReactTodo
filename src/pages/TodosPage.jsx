@@ -4,28 +4,18 @@ import {
 	todoReducer,
 	initialTodoState,
 	TODO_ACTIONS,
-<<<<<<< HEAD:src/pages/TodosPage.jsx
 } from "../reducers/todoReducer.js";
 import TodoList from "../features/Todos/TodoList/TodoList.jsx";
 import TodoForm from "../features/Todos/TodoForm.jsx";
 import SortBy from "../shared/SortBy.jsx";
 import useDebounce from "../utils/useDebounce.js";
 import FilterInput from "../shared/FilterInput.jsx";
-import { useAuth } from "../contexts/AuthContext.jsx";
 import StatusFilter from "../shared/StatusFilter.jsx";
-=======
-} from "../../reducers/todoReducer";
-import TodoList from "../../features/Todos/TodoList/TodoList.jsx";
-import TodoForm from "../../features/Todos/TodoForm.jsx";
-import SortBy from "../../shared/SortBy.jsx";
-import useDebounce from "../../utils/useDebounce.js";
-import FilterInput from "../../shared/FilterInput.jsx";
-import { useAuth } from "../../contexts/AuthContext.jsx";
-import Loading from "../../shared/Loading.jsx";
+import { useAuth } from "../contexts/AuthContext.jsx";
+import Loading from "../shared/Loading.jsx";
 import clsx from "clsx";
-import controls from "../../shared/styles/controls.module.css"
-import layout from "../../shared/styles/layout.module.css"
->>>>>>> 7a6b18f (w12: css modules + loading + layout refactor):src/features/Todos/TodosPage.jsx
+import controls from "../shared/styles/controls.module.css";
+import styles from "./TodosPage.module.css";
 
 const TodosPage = () => {
 	const { token } = useAuth();
@@ -300,84 +290,200 @@ const TodosPage = () => {
 		});
 	}
 
+	// return (
+	// 	<>
+	// 		{error && (
+	// 			<div className="errorRow">
+	// 				<div className="errorText">{error}</div>
+	// 				<button
+	// 					onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_ERROR })}
+	// 					className={clsx(controls.btn, controls.btnDanger)}
+	// 				>
+	// 					Clear error
+	// 				</button>
+	// 			</div>
+	// 		)}
+	// 		{filterError && (
+	// 			<div>
+	// 				<p className="errorText">
+	// 					Error filtering/sorting todos: {filterError}
+	// 				</p>
+	// 				<button
+	// 					onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_FILTER_ERROR })}
+	// 					className={clsx(controls.btn, controls.btnDanger)}
+	// 				>
+	// 					Clear Filter Error
+	// 				</button>
+	// 			</div>
+	// 		)}
+
+	// 		<SortBy
+	// 			sortby={sortBy}
+	// 			sortDirection={sortDirection}
+	// 			onSortByChange={handleSortByChange}
+	// 			onSortDirectionChange={handleSortDirectionChange}
+	// 		/>
+
+	// 		<StatusFilter />
+
+	// 		<div className={clsx(layout.row, layout.rowActions)}>
+	// 			<FilterInput
+	// 				filterTerm={filterTerm}
+	// 				onFilterChange={handleFilterChange}
+	// 			/>
+
+	// 			<button
+	// 				type="button"
+	// 				className={controls.btn}
+	// 				onClick={() => dispatch({ type: TODO_ACTIONS.RESET_FILTERS })}
+	// 				disabled={!filterTerm}
+	// 			>
+	// 				Reset filter
+	// 			</button>
+	// 		</div>
+
+	// 		<TodoForm onAddTodo={addTodo} />
+
+	// 		<div>{isTodoListLoading && <Loading />}</div>
+
+	// 		<TodoList
+	// 			todoList={todoList}
+	// 			onCompleteTodo={completeTodo}
+	// 			onUpdateTodo={updateTodo}
+	// 			dataVersion={dataVersion}
+	// 			onDeleteTodo={deleteTodo}
+	// 			statusFilter={statusFilter}
+	// 		/>
+	// 	</>
+	// );
+
 	return (
-		<>
+		<div className={styles.page}>
 			{error && (
-				<div className="errorRow">
-					<div className="errorText">{error}</div>
+				<div className={styles.alert}>
+					<div className={styles.alertText}>{error}</div>
 					<button
 						onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_ERROR })}
-						className={clsx(controls.btn, controls.btnDanger) }
+						className={clsx(controls.btn, controls.btnDanger, styles.alertBtn)}
 					>
 						Clear error
 					</button>
 				</div>
 			)}
+
 			{filterError && (
-				<div>
-					<p className="errorText">
+				<div className={styles.alert}>
+					<div className={styles.alertText}>
 						Error filtering/sorting todos: {filterError}
-					</p>
+					</div>
 					<button
 						onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_FILTER_ERROR })}
-						className={clsx(controls.btn, controls.btnDanger) }
+						className={clsx(controls.btn, controls.btnDanger, styles.alertBtn)}
 					>
 						Clear Filter Error
 					</button>
 				</div>
 			)}
-<<<<<<< HEAD:src/pages/TodosPage.jsx
 
-			<p>{isTodoListLoading ? "Loading..." : ""}</p>
-
-			<SortBy
-				sortby={sortBy}
-				sortDirection={sortDirection}
-				onSortByChange={handleSortByChange}
-				onSortDirectionChange={handleSortDirectionChange}
-			/>
-
-			<StatusFilter />
-
-			<div className="row row--actions">
-=======
-			<p>{isTodoListLoading && <Loading/>}</p>
-			<TodoForm onAddTodo={addTodo} />
-			<TodoList
-				todoList={todoList}
-				onCompleteTodo={completeTodo}
-				onUpdateTodo={updateTodo}
-				dataVersion={dataVersion}
-				onDeleteTodo={deleteTodo}
-			/>
-			<div className={clsx(layout.row, layout.rowActions)}>
->>>>>>> 7a6b18f (w12: css modules + loading + layout refactor):src/features/Todos/TodosPage.jsx
-				<FilterInput
-					filterTerm={filterTerm}
-					onFilterChange={handleFilterChange}
-				/>
-
-				<button
-					type="button"
-					className={controls.btn}
-					onClick={() => dispatch({ type: TODO_ACTIONS.RESET_FILTERS })}
-					disabled={!filterTerm}
-				>
-					Reset filter
-				</button>
+			<div className={styles.head}>
+				<h1 className={styles.title}>Todos</h1>
+				<p className={styles.subtitle}>Sort, filter and manage your tasks</p>
 			</div>
 
-			<TodoForm onAddTodo={addTodo} />
+			<section className={styles.card}>
+				<div className={styles.cardHeader}>
+					<div>
+						<h2 className={styles.cardTitle}>Filters</h2>
+						<p className={styles.cardHint}>
+							Use search and sorting to find tasks faster
+						</p>
+					</div>
+					<button
+						type="button"
+						className={clsx(controls.btn, styles.btnPrimary)}
+						onClick={() => dispatch({ type: TODO_ACTIONS.RESET_FILTERS })}
+						disabled={
+							!filterTerm &&
+							sortBy === "creationDate" &&
+							sortDirection === "desc"
+						}
+					>
+						Reset all
+					</button>
+				</div>
 
-			<TodoList
-				todoList={todoList}
-				onCompleteTodo={completeTodo}
-				onUpdateTodo={updateTodo}
-				dataVersion={dataVersion}
-				onDeleteTodo={deleteTodo}
-				statusFilter={statusFilter}
-			/>
-		</>
+				<div className={styles.filtersGrid}>
+					<div className={styles.block}>
+						<SortBy
+							sortby={sortBy}
+							sortDirection={sortDirection}
+							onSortByChange={handleSortByChange}
+							onSortDirectionChange={handleSortDirectionChange}
+						/>
+					</div>
+
+					<div className={styles.block}>
+						<StatusFilter />
+					</div>
+
+					<div className={styles.searchRow}>
+						<FilterInput
+							filterTerm={filterTerm}
+							onFilterChange={handleFilterChange}
+						/>
+
+						<button
+							type="button"
+							className={clsx(controls.btn, styles.btnPrimary)}
+							onClick={() => dispatch({ type: TODO_ACTIONS.RESET_FILTERS })}
+							disabled={!filterTerm}
+						>
+							Reset filter
+						</button>
+					</div>
+				</div>
+			</section>
+
+
+			<section className={styles.card}>
+				<div className={styles.cardHeaderCompact}>
+					<h2 className={styles.cardTitle}>Add todo</h2>
+					<p className={styles.cardHint}>Write a short title and press Add</p>
+				</div>
+
+				<div className={styles.formWrap}>
+					<TodoForm onAddTodo={addTodo} />
+				</div>
+			</section>
+
+			<section className={styles.card}>
+				<div className={styles.cardHeaderCompact}>
+					<h2 className={styles.cardTitle}>List</h2>
+					<p className={styles.cardHint}>
+						{isTodoListLoading
+							? "Loading…"
+							: `Showing ${todoList?.length ?? 0} todos`}
+					</p>
+				</div>
+
+				{isTodoListLoading && (
+					<div className={styles.loadingRow}>
+						<Loading />
+					</div>
+				)}
+
+
+					<TodoList
+						todoList={todoList}
+						onCompleteTodo={completeTodo}
+						onUpdateTodo={updateTodo}
+						dataVersion={dataVersion}
+						onDeleteTodo={deleteTodo}
+						statusFilter={statusFilter}
+					/>
+
+			</section>
+		</div>
 	);
 };
 

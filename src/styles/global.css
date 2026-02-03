@@ -29,6 +29,10 @@ body {
 	height: 100%;
 }
 
+html {
+	scrollbar-gutter: stable;
+}
+
 body {
 	margin: 0;
 	font-family:
@@ -53,6 +57,8 @@ body {
 			transparent 55%
 		),
 		var(--bg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 	line-height: 1.4;
 }
 
@@ -60,7 +66,6 @@ body {
 a {
 	color: inherit;
 }
-
 
 .select {
 	height: 40px;
@@ -81,4 +86,3 @@ a {
 	color: #b91c1c;
 	font-weight: 600;
 }
-

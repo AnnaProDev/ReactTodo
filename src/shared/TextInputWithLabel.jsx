@@ -3,7 +3,7 @@ import controls from "../shared/styles/controls.module.css"
 function TextInputWithLabel({ elementId, labelText, onChange, value }) {
 	return (
 		<div>
-			<label className="label" htmlFor={elementId}>{labelText}</label>
+			<label className={controls.label} htmlFor={elementId}>{labelText}</label>
 			<input
 				type="text"
 				id={elementId}

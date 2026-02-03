@@ -1,16 +1,20 @@
 import { useEffect, useState, useMemo } from "react";
 import { useAuth } from "../contexts/AuthContext.jsx";
+import layout from "../shared/styles/layout.module.css";
+import styles from "./ProfilePage.module.css";
+import Loading from "../shared/Loading.jsx";
+import clsx from "clsx";
 
 const ProfilePage = () => {
 	const { email, token, isAuthenticated } = useAuth();
-	const [todoStats, setTodoStats] = useState({
-		total: 0,
-		completed: 0,
-		active: 0,
-	});
+
+	const [todos, setTodos] = useState([]);
+	const total = todos.length;
+	const completed = todos.filter((todo) => todo.isCompleted).length;
+	const active = total - completed;
+
 	const [isLoading, setLoading] = useState(false);
 	const [error, setError] = useState();
-
 
 	const baseUrl = import.meta.env.VITE_BASE_URL;
 
@@ -40,12 +44,7 @@ const ProfilePage = () => {
 
 				const todos = await response.json();
 
-				// Calculate statistics
-				const total = todos.length;
-				const completed = todos.filter((todo) => todo.isCompleted).length;
-				const active = total - completed;
-
-				setTodoStats({ total, completed, active });
+				setTodos(todos);
 			} catch (err) {
 				setError(`Error loading statistics: ${err.message}`);
 			} finally {
@@ -54,53 +53,94 @@ const ProfilePage = () => {
 		}
 
 		fetchTodoStats();
-	}, [token, baseUrl, setTodoStats]);
-
+	}, [token, baseUrl, setTodos]);
 
 	const completionPercent = useMemo(() => {
-		if (todoStats.total === 0) return 0;
-		return Math.round((todoStats.completed / todoStats.total) * 100);
-	}, [todoStats.total, todoStats.completed]);
+		if (total === 0) return 0;
+		return Math.round((completed / total) * 100);
+	}, [total, completed]);
 
 	return (
-		<div className="card">
-			<div className="header">
+		<div className={clsx(layout.card, styles.profile)}>
+			<div className={styles.header}>
 				<div>
-					<h1 className="title">Profile</h1>
-					<p className="subtitle">Your info and todo statistics</p>
+					<h1 className={styles.title}>Profile</h1>
+					<p className={styles.subtitle}>Your info and todo statistics</p>
 				</div>
 			</div>
 
-			<div className="section">
-				<h2 className="sectionTitle">User</h2>
-				<p>
-					<span>Name: {email}</span>
-				</p>
-				<p>
-					<span >Status: {isAuthenticated ? "Authenticated" : "Guest"}</span>
-					
-				</p>
+			<div className={layout.section}>
+				<h2 className={layout.sectionTitle}>User</h2>
+
+				<div className={styles.kvList}>
+					<div className={styles.kvRow}>
+						<span className={styles.kvKey}>Name</span>
+						<span className={styles.badge}>{email}</span>
+					</div>
+
+					<div className={styles.kvRow}>
+						<span className={styles.kvKey}>Status</span>
+						<span
+							className={
+								isAuthenticated ? styles.badgeSuccess : styles.badgeMuted
+							}
+						>
+							{isAuthenticated ? "Authenticated" : "Guest"}
+						</span>
+					</div>
+				</div>
 			</div>
 
-			<div className="section">
-				<h2 className="sectionTitle">Todo stats</h2>
+			<div className={layout.section}>
+				<h2 className={layout.sectionTitle}>Todo stats</h2>
+
 				{error && (
-					<div className="errorRow">
-						<div className="errorText">{error}</div>
+					<div className={styles.errorRow}>
+						<div className={styles.errorText}>{error}</div>
 					</div>
 				)}
+
 				{isLoading ? (
-					<p>Loading ...</p>
+					<div className={styles.loadingRow}>
+						<Loading />
+					</div>
 				) : (
 					<>
-						<p>Total: {todoStats.total}</p>
-						<p>Completed: {todoStats.completed}</p>
-						<p>Active: {todoStats.active}</p>
+						<div className={styles.statsGrid}>
+							<div className={styles.statCard}>
+								<div className={styles.statLabel}>Total</div>
+								<div className={styles.statValue}>{total}</div>
+							</div>
 
-						{todoStats.total > 0 ? (
-							<p>Completion: {completionPercent}%</p>
+							<div className={styles.statCard}>
+								<div className={styles.statLabel}>Completed</div>
+								<div className={styles.statValue}>{completed}</div>
+							</div>
+
+							<div className={styles.statCard}>
+								<div className={styles.statLabel}>Active</div>
+								<div className={styles.statValue}>{active}</div>
+							</div>
+						</div>
+
+						{total > 0 ? (
+							<div className={styles.progressBlock}>
+								<div className={styles.progressTop}>
+									<span className={styles.progressLabel}>Completion</span>
+									<span className={styles.progressValue}>
+										{completionPercent}%
+									</span>
+								</div>
+
+								<div className={styles.progressTrack}>
+									<div
+										className={styles.progressFill}
+										style={{ width: `${completionPercent}%` }}
+									/>
+								</div>
+							</div>
 						) : (
-							<p className="subtitle">No todos yet.</p>
+							<p className={layout.subtitle}>No todos yet.</p>
 						)}
 					</>
 				)}
