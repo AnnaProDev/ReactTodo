@@ -110,7 +110,7 @@ a {
 
 .sectionTitle {
 	margin: 0 0 12px;
-	font-size: 14px;
+	font-size: 16px;
 	color: var(--muted);
 	font-weight: 600;
 }
@@ -149,7 +149,7 @@ a {
 .input,
 .select {
 	width: 100%;
-	padding: 11px 12px;
+	padding: 11px 20px;
 	border: 1px solid var(--border);
 	background: #fff;
 	border-radius: 12px;
@@ -331,6 +331,7 @@ a {
 	height: 18px;
 	cursor: pointer;
 	margin-right: 10px;
+	accent-color: var(--primary);
 }
 
 .todoText {
@@ -352,13 +353,6 @@ a {
 	grid-template-columns: 1fr 1fr;
 }
 
-.select {
-	height: 40px;
-	border-radius: 10px;
-	border: 1px solid var(--border);
-	padding: 0 10px;
-}
-
 .errorRow {
 	display: flex;
 	align-items: center;
@@ -372,3 +366,143 @@ a {
 	font-weight: 600;
 }
 
+/* ========== About page ========== */
+
+.aboutHeader {
+	display: grid;
+	gap: 6px;
+	margin-bottom: 18px;
+}
+
+.aboutDescription {
+	font-size: 14px;
+	color: var(--muted);
+}
+
+.aboutSection {
+	margin-top: 18px;
+	padding-top: 18px;
+	border-top: 1px solid var(--border);
+}
+
+.aboutList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	display: grid;
+	gap: 10px;
+}
+
+.aboutItem {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+
+	padding: 12px 14px;
+	border-radius: 12px;
+
+	background: #fff;
+	border: 1px solid rgba(229, 231, 235, 0.9);
+	box-shadow: var(--shadow-soft);
+}
+
+.aboutItem::before {
+	content: "";
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--primary);
+	flex-shrink: 0;
+}
+
+.aboutTechGrid {
+	display: grid;
+	gap: 12px;
+	margin-top: 12px;
+}
+
+@media (min-width: 640px) {
+	.aboutTechGrid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+.aboutTechCard {
+	padding: 14px;
+	border-radius: 12px;
+
+	background: #fff;
+	border: 1px solid rgba(229, 231, 235, 0.9);
+	box-shadow: var(--shadow-soft);
+
+	display: grid;
+	gap: 6px;
+}
+
+.aboutTechTitle {
+	font-size: 14px;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+}
+
+.aboutTechText {
+	font-size: 13px;
+	color: var(--muted);
+}
+
+/* ========== Not Found page ========== */
+.notFound {
+	margin-top: 40px;
+	text-align: center;
+}
+
+.notFoundHeader {
+	display: grid;
+	gap: 8px;
+	margin-bottom: 20px;
+}
+
+.notFoundHeader .title {
+	font-size: 48px;
+	letter-spacing: -0.03em;
+}
+
+.notFoundActions {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 12px;
+	margin-top: 18px;
+}
+
+.notFoundActions .btn {
+	display: flex;
+	align-items: center;
+}
+
+/* ========== App links ========== */
+.listStyle {
+	color: var(--text);
+	font-size: 16px;
+	list-style: none;
+	display: flex;
+	padding: 0;
+	margin: 0;
+}
+
+.listStyle li {
+	padding: 6px 10px;
+	border-radius: 10px;
+	transition: all 0.3s ease;
+}
+
+.listStyle li:hover {
+	background-color: rgba(99, 102, 241, 0.08);
+	color: var(--primary);
+}
+
+.listStyle li:focus-visible {
+	outline: none;
+	box-shadow: var(--focus);
+}

@@ -1,31 +1,37 @@
 import { useCallback, useEffect, useReducer } from "react";
+import { useSearchParams } from "react-router";
 import {
 	todoReducer,
 	initialTodoState,
 	TODO_ACTIONS,
-} from "../../reducers/todoReducer";
-import TodoList from "../../features/Todos/TodoList/TodoList.jsx";
-import TodoForm from "../../features/Todos/TodoForm.jsx";
-import SortBy from "../../shared/SortBy.jsx";
-import useDebounce from "../../utils/useDebounce.js";
-import FilterInput from "../../shared/FilterInput.jsx";
-import { useAuth } from "../../contexts/AuthContext.jsx";
+} from "../reducers/todoReducer.js";
+import TodoList from "../features/Todos/TodoList/TodoList.jsx";
+import TodoForm from "../features/Todos/TodoForm.jsx";
+import SortBy from "../shared/SortBy.jsx";
+import useDebounce from "../utils/useDebounce.js";
+import FilterInput from "../shared/FilterInput.jsx";
+import { useAuth } from "../contexts/AuthContext.jsx";
+import StatusFilter from "../shared/StatusFilter.jsx";
 
 const TodosPage = () => {
-	const [state, dispatch] = useReducer(todoReducer, initialTodoState);
-
 	const { token } = useAuth();
+	const [searchParams] = useSearchParams();
+	// Get status filter from URL, default to 'all'
+	const statusFilter = searchParams.get("status") || "all";
 
-	const {
-		todoList,
-		isTodoListLoading,
-		error,
-		filterError,
-		filterTerm,
-		sortBy,
-		sortDirection,
-		dataVersion,
-	} = state;
+	const [
+		{
+			todoList,
+			isTodoListLoading,
+			error,
+			filterError,
+			filterTerm,
+			sortBy,
+			sortDirection,
+			dataVersion,
+		},
+		dispatch,
+	] = useReducer(todoReducer, initialTodoState);
 
 	const baseUrl = import.meta.env.VITE_BASE_URL;
 	const debouncedFilterTerm = useDebounce(filterTerm, 300);
@@ -230,8 +236,7 @@ const TodosPage = () => {
 		const originalToDo = todoList.find((todo) => todo.id === id);
 		if (!originalToDo) return;
 
-		const updatedTodos = todoList.filter((todo) => todo.id !== originalToDo.id);
-		
+		const updatedTodos = todoList.filter((todo) => todo.id !== id);
 
 		dispatch({ type: TODO_ACTIONS.DELETE_TODO_START, payload: updatedTodos });
 
@@ -307,15 +312,18 @@ const TodosPage = () => {
 					</button>
 				</div>
 			)}
+
 			<p>{isTodoListLoading ? "Loading..." : ""}</p>
-			<TodoForm onAddTodo={addTodo} />
-			<TodoList
-				todoList={todoList}
-				onCompleteTodo={completeTodo}
-				onUpdateTodo={updateTodo}
-				dataVersion={dataVersion}
-				onDeleteTodo={deleteTodo}
+
+			<SortBy
+				sortby={sortBy}
+				sortDirection={sortDirection}
+				onSortByChange={handleSortByChange}
+				onSortDirectionChange={handleSortDirectionChange}
 			/>
+
+			<StatusFilter />
+
 			<div className="row row--actions">
 				<FilterInput
 					filterTerm={filterTerm}
@@ -331,11 +339,16 @@ const TodosPage = () => {
 					Reset filter
 				</button>
 			</div>
-			<SortBy
-				sortby={sortBy}
-				sortDirection={sortDirection}
-				onSortByChange={handleSortByChange}
-				onSortDirectionChange={handleSortDirectionChange}
+
+			<TodoForm onAddTodo={addTodo} />
+
+			<TodoList
+				todoList={todoList}
+				onCompleteTodo={completeTodo}
+				onUpdateTodo={updateTodo}
+				dataVersion={dataVersion}
+				onDeleteTodo={deleteTodo}
+				statusFilter={statusFilter}
 			/>
 		</>
 	);

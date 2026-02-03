@@ -19,6 +19,11 @@ export const TODO_ACTIONS = {
 	UPDATE_TODO_SUCCESS: "UPDATE_TODO_SUCCESS",
 	UPDATE_TODO_ERROR: "UPDATE_TODO_ERROR",
 
+	// DELETE todo operations
+	DELETE_TODO_START: "DELETE_TODO_START",
+	DELETE_TODO_SUCCESS: "DELETE_TODO_SUCCESS",
+	DELETE_TODO_ERROR: "DELETE_TODO_ERROR",
+
 	//UI operations
 	SET_SORT: "SET_SORT",
 	SET_FILTER: "SET_FILTER",
@@ -41,7 +46,7 @@ export const initialTodoState = {
 
 export function todoReducer(state, action) {
 	console.log("Dispatched action:", action.type, action.payload);
-	console.log(state);
+
 	switch (action.type) {
 		// ---------------- FETCH ----------------
 		case TODO_ACTIONS.FETCH_START:
@@ -136,7 +141,7 @@ export function todoReducer(state, action) {
 		case TODO_ACTIONS.DELETE_TODO_START:
 			return {
 				...state,
-				todoList: Array.isArray(action.payload) ? action.payload : state.todoList,
+				todoList: action.payload,
 			};
 		case TODO_ACTIONS.DELETE_TODO_SUCCESS:
 			return {
@@ -144,6 +149,7 @@ export function todoReducer(state, action) {
 				error: "",
 			};
 		case TODO_ACTIONS.DELETE_TODO_ERROR:
+			console.log("DELETE_TODO_ERROR payload:", action.payload);
 			return {
 				...state,
 				todoList: [action.payload.originalToDo, ...state.todoList],
