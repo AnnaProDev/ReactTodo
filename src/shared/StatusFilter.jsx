@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router";
+import controls from "../shared/styles/controls.module.css"
 
 function StatusFilter() {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -16,12 +17,12 @@ function StatusFilter() {
 
 	return (
 		<div>
-			<label htmlFor="statusFilter" className="label">Show:</label>
+			<label htmlFor="statusFilter" className={controls.label}>Show:</label>
 			<select
 				id="statusFilter"
 				value={currentStatus}
 				onChange={(e) => handleStatusChange(e.target.value)}
-				className="select"
+				className={controls.select}
 			>
 				<option value="all">All Todos</option>
 				<option value="active">Active Todos</option>

@@ -1,7 +1,9 @@
+import controls from "../shared/styles/controls.module.css"
+
 export const FilterInput = ({filterTerm, onFilterChange}) => {
 	return (
 		<div>
-			<label className="label" htmlFor="filterInput">Search todos: </label>
+			<label className={controls.label} htmlFor="filterInput">Search todos: </label>
 			<input
 				type="text"
 				name="filterInput"
@@ -11,7 +13,7 @@ export const FilterInput = ({filterTerm, onFilterChange}) => {
 					onFilterChange(e.target.value);
 				}}
 				placeholder='Search by title...'
-				className="input"
+				className={controls.input}
 			/>
 		</div>
 	);

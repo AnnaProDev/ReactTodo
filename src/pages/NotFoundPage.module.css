@@ -1,0 +1,49 @@
+/* ========== Not Found page ========== */
+.notFound {
+	margin-top: 40px;
+	text-align: center;
+}
+
+.notFoundHeader {
+	display: grid;
+	gap: 8px;
+	margin-bottom: 20px;
+}
+
+.notFoundHeader .title {
+	font-size: 48px;
+	letter-spacing: -0.03em;
+}
+
+.notFoundActions {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 12px;
+	margin-top: 18px;
+}
+
+.notFoundActionsBtn {
+	display: flex;
+	align-items: center;
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	margin-bottom: 18px;
+}
+
+.title {
+	margin: 0;
+	font-size: 28px;
+	letter-spacing: -0.02em;
+}
+
+.subtitle {
+	margin: 6px 0 0;
+	color: var(--muted);
+	font-size: 14px;
+}

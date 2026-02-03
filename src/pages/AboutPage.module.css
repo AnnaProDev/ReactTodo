@@ -1,0 +1,88 @@
+/* ========== About page ========== */
+
+.about {
+	margin-top: 50px;
+}
+
+.aboutHeader {
+	display: grid;
+	gap: 6px;
+	margin-bottom: 18px;
+}
+
+.aboutDescription {
+	font-size: 14px;
+	color: var(--muted);
+}
+
+.aboutSection {
+	margin-top: 18px;
+	padding-top: 18px;
+	border-top: 1px solid var(--border);
+}
+
+.aboutList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	display: grid;
+	gap: 10px;
+}
+
+.aboutItem {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+
+	padding: 12px 14px;
+	border-radius: 12px;
+
+	background: #fff;
+	border: 1px solid rgba(229, 231, 235, 0.9);
+	box-shadow: var(--shadow-soft);
+}
+
+.aboutItem::before {
+	content: "";
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--primary);
+	flex-shrink: 0;
+}
+
+.aboutTechGrid {
+	display: grid;
+	gap: 12px;
+	margin-top: 12px;
+}
+
+@media (min-width: 640px) {
+	.aboutTechGrid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+.aboutTechCard {
+	padding: 14px;
+	border-radius: 12px;
+
+	background: #fff;
+	border: 1px solid rgba(229, 231, 235, 0.9);
+	box-shadow: var(--shadow-soft);
+
+	display: grid;
+	gap: 6px;
+}
+
+.aboutTechTitle {
+	font-size: 14px;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+}
+
+.aboutTechText {
+	font-size: 13px;
+	color: var(--muted);
+}

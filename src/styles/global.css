@@ -1,0 +1,88 @@
+/* ========== Base / Theme ========== */
+:root {
+	--bg: #f6f7fb;
+	--card: #ffffff;
+	--text: #111827;
+	--muted: #6b7280;
+	--border: #e5e7eb;
+
+	--primary: #6366f1;
+	--primary-hover: #5558ee;
+
+	--danger: #ef4444;
+
+	--radius: 14px;
+	--shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+	--shadow-soft: 0 6px 18px rgba(17, 24, 39, 0.06);
+
+	--focus: 0 0 0 4px rgba(99, 102, 241, 0.18);
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+html {
+	scrollbar-gutter: stable;
+}
+
+body {
+	margin: 0;
+	font-family:
+		ui-sans-serif,
+		system-ui,
+		-apple-system,
+		Segoe UI,
+		Roboto,
+		Arial,
+		"Apple Color Emoji",
+		"Segoe UI Emoji";
+	color: var(--text);
+	background:
+		radial-gradient(
+			900px 600px at 15% 10%,
+			rgba(99, 102, 241, 0.1),
+			transparent 60%
+		),
+		radial-gradient(
+			900px 600px at 85% 30%,
+			rgba(34, 197, 94, 0.1),
+			transparent 55%
+		),
+		var(--bg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	line-height: 1.4;
+}
+
+/* Links */
+a {
+	color: inherit;
+}
+
+.select {
+	height: 40px;
+	border-radius: 10px;
+	border: 1px solid var(--border);
+	padding: 0 10px;
+}
+
+.errorRow {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin: 10px 0 14px;
+}
+
+.errorText {
+	font-size: 14px;
+	color: #b91c1c;
+	font-weight: 600;
+}

@@ -1,0 +1,151 @@
+.page {
+	max-width: 1040px;
+	margin: 0 auto;
+}
+
+/* Header */
+.head {
+	margin: 6px 0 16px;
+}
+
+.title {
+	margin: 0;
+	font-size: 30px;
+	letter-spacing: -0.02em;
+}
+
+.subtitle {
+	margin: 8px 0 0;
+	color: var(--muted);
+	font-size: 14px;
+}
+
+.btnPrimary {
+	background: var(--primary) !important;
+	color: #fff !important;
+	border: none !important;
+	font-weight: 600;
+	box-shadow: 0 6px 14px rgba(99, 102, 241, 0.35);
+}
+
+.btnPrimary:hover {
+	filter: brightness(1.05);
+}
+
+.btnPrimary:active {
+	transform: translateY(1px);
+}
+
+/* Soft cards */
+.card {
+	border-radius: 18px;
+	padding: 16px;
+	margin-top: 14px;
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	background: rgba(255, 255, 255, 0.75);
+	backdrop-filter: blur(6px);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.cardHeader {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 12px;
+}
+
+.cardHeaderCompact {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 10px;
+}
+
+.cardTitle {
+	margin: 0;
+	font-size: 16px;
+	letter-spacing: -0.01em;
+}
+
+.cardHint {
+	margin: 6px 0 0;
+	color: var(--muted);
+	font-size: 13px;
+}
+
+/* Filters layout */
+.filtersGrid {
+	display: grid;
+	gap: 12px;
+}
+
+.block {
+	padding: 12px;
+	border-radius: 14px;
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	background: rgba(255, 255, 255, 0.65);
+}
+
+.searchRow {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: 12px;
+	align-items: end;
+}
+
+/* Todo form wrapper */
+.formWrap {
+	padding: 12px;
+	border-radius: 14px;
+	border: 1px solid rgba(0, 0, 0, 0.06);
+	background: rgba(255, 255, 255, 0.65);
+}
+
+/* Loading */
+.loadingRow {
+	padding: 12px 0 6px;
+}
+
+/* Alerts */
+.alert {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 12px 14px;
+	border-radius: 14px;
+	border: 1px solid rgba(239, 68, 68, 0.25);
+	background: rgba(239, 68, 68, 0.1);
+}
+
+.alertText {
+	color: rgba(190, 18, 60, 1);
+	font-size: 13px;
+}
+
+.alertBtn {
+	white-space: nowrap;
+}
+
+/* Buttons look: keep your controls.btn base */
+.btnSecondary {
+	background: rgba(0, 0, 0, 0.04) !important;
+	border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Responsive */
+@media (max-width: 780px) {
+	.page {
+		padding: 14px 12px 28px;
+	}
+
+	.cardHeader {
+		flex-direction: column;
+	}
+
+	.searchRow {
+		grid-template-columns: 1fr;
+	}
+}

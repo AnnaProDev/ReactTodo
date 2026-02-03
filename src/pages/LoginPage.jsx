@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
+import controls from "../shared/styles/controls.module.css";
+import styles from "./LoginPage.module.css";
+import clsx from "clsx";
 
 function LoginPage() {
 	const { login, isAuthenticated } = useAuth();
@@ -34,53 +37,62 @@ function LoginPage() {
 
 		if (result.success) {
 			// useEffect will handle redirect
-		
 		}
 	}
 
-	// ... rest of component with form JSX
-
 	return (
-		<div className="auth_form">
-			<div>
-				<label className="label" htmlFor="email">
-					Email:
-				</label>
-				<input
-					required
-					type="email"
-					value={email}
-					onChange={(event) => {
-						setEmail(event.target.value);
-					}}
-					className="input"
-				/>
+		<div className={styles.page}>
+			<div className={styles.card}>
+				<div className={styles.header}>
+					<h1 className={styles.title}>Log in</h1>
+					<p className={styles.subtitle}>Use your account to access todos</p>
+				</div>
+
+				<div className={styles.form}>
+					<div className={styles.field}>
+						<label className={controls.label} htmlFor="email">
+							Email
+						</label>
+						<input
+							required
+							type="email"
+							value={email}
+							onChange={(event) => {
+								setEmail(event.target.value);
+							}}
+							className={controls.input}
+						/>
+					</div>
+
+					<div className={styles.field}>
+						<label className={controls.label} htmlFor="password">
+							Password
+						</label>
+						<input
+							required
+							type="password"
+							name="password"
+							id="password"
+							value={password}
+							onChange={(event) => {
+								setPassword(event.target.value);
+							}}
+							className={controls.input}
+						/>
+					</div>
+
+					{formError && <div className={styles.error}>{formError}</div>}
+
+					<button
+						className={clsx(controls.btn, styles.btnPrimary)}
+						type="submit"
+						onClick={handleSubmit}
+						disabled={isAuthenticated}
+					>
+						{isAuthenticated ? "Logging in..." : "Log in"}
+					</button>
+				</div>
 			</div>
-			<div>
-				<label className="label" htmlFor="password">
-					Password:
-				</label>
-				<input
-					required
-					type="password"
-					name="password"
-					id="password"
-					value={password}
-					onChange={(event) => {
-						setPassword(event.target.value);
-					}}
-					className="input"
-				/>
-			</div>
-			<div className="errorText">{formError}</div>
-			<button
-				className="btn"
-				type="submit"
-				onClick={handleSubmit}
-				disabled={isAuthenticated}
-			>
-				{isAuthenticated ? "Logging in..." : "Log in"}
-			</button>
 		</div>
 	);
 }

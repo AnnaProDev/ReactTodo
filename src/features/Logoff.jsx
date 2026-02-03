@@ -1,5 +1,7 @@
-import { useAuth } from "./../contexts/AuthContext";
 import { useNavigate } from "react-router";
+import { useAuth } from "./../contexts/AuthContext"
+import controls from "../shared/styles/controls.module.css"
+import clsx from "clsx";
 
 const Logoff = () => {
 	const { logout } = useAuth();
@@ -17,7 +19,7 @@ const Logoff = () => {
 
 	return (
 		<div>
-			<button className="btn btn--secondary" onClick={handleLogout}>
+			<button className={clsx(controls.btn, controls.btnSecondary)} onClick={handleLogout}>
 				Logoff
 			</button>
 		</div>
@@ -25,3 +27,4 @@ const Logoff = () => {
 };
 
 export default Logoff;
+

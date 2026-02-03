@@ -1,4 +1,3 @@
-import "./App.css";
 import { Routes, Route } from "react-router";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
@@ -8,11 +7,13 @@ import ProfilePage from "./pages/ProfilePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import RequireAuth from "./components/RequireAuth";
 import Header from "./shared/Header";
+import layout from "./shared/styles/layout.module.css";
+
 
 function App() {
 	return (
-		<div className="app">
-			<div className="container">
+		<div className={layout.app}>
+			<div className={layout.container}>
 				<Header />
 				<Routes>
 					<Route path="/" element={<HomePage />} />

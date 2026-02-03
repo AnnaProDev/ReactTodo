@@ -1,0 +1,23 @@
+/* ========== Todo list ========== */
+.todoList {
+	display: grid;
+	gap: 10px;
+	margin: 14px 0;
+	padding: 14px;
+
+	list-style: none;
+
+	border-radius: 14px;
+	border: 1px dashed rgba(99, 102, 241, 0.35);
+
+	background: rgba(238, 242, 255, 0.6);
+	box-shadow: 0 8px 22px rgba(17, 24, 39, 0.05);
+}
+
+
+.filters {
+	margin-top: 20px;
+	display: grid;
+	gap: 12px;
+	grid-template-columns: 1fr 1fr;
+}

@@ -1,3 +1,6 @@
+import controls from "../shared/styles/controls.module.css"
+import styles from "./SortBy.module.css"
+
 const SortBy = ({
 	sortBy,
 	sortDirection,
@@ -5,17 +8,17 @@ const SortBy = ({
 	onSortDirectionChange,
 }) => {
 	return (
-		<div className="filters">
+		<div className={styles.filters}>
 			<div>
-				<label className="label" htmlFor="sortBy">
-					Sort by{" "}
+				<label className={controls.label} htmlFor="sortBy">
+					Sort by
 				</label>
 				<select
 					name="sortBy"
 					id="sortBy"
 					value={sortBy}
 					onChange={(event) => onSortByChange(event.target.value)}
-					className="select"
+					className={controls.select} 
 				>
 					<option value="creationDate">Creation Date </option>
 					<option value="title">Title</option>
@@ -23,16 +26,15 @@ const SortBy = ({
 			</div>
 
 			<div>
-				<label className="label" htmlFor="order">
-					{" "}
-					Order{" "}
+				<label className={controls.label}  htmlFor="order">
+					Order
 				</label>
 				<select
 					name="order"
 					id="order"
 					value={sortDirection}
 					onChange={(event) => onSortDirectionChange(event.target.value)}
-					className="select"
+					className={controls.select} 
 				>
 					<option value="desc">Descending</option>
 					<option value="asc">Ascending</option>
