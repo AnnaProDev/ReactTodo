@@ -62,14 +62,15 @@ const ProfilePage = () => {
 
 	return (
 		<div className={clsx(layout.card, styles.profile)}>
-			<div className={styles.header}>
-				<div>
-					<h1 className={styles.title}>Profile</h1>
-					<p className={styles.subtitle}>Your info and todo statistics</p>
+
+				<div className={layout.pageHead}>
+					<h1 className={layout.pageTitle}>Profile</h1>
+					<p className={layout.pageSubtitle}>Your info and todo statistics</p>
 				</div>
-			</div>
+
 
 			<div className={layout.section}>
+				
 				<h2 className={layout.sectionTitle}>User</h2>
 
 				<div className={styles.kvList}>

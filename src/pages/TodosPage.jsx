@@ -16,6 +16,7 @@ import Loading from "../shared/Loading.jsx";
 import clsx from "clsx";
 import controls from "../shared/styles/controls.module.css";
 import styles from "./TodosPage.module.css";
+import layout from "../shared/styles/layout.module.css"
 
 const TodosPage = () => {
 	const { token } = useAuth();
@@ -290,73 +291,6 @@ const TodosPage = () => {
 		});
 	}
 
-	// return (
-	// 	<>
-	// 		{error && (
-	// 			<div className="errorRow">
-	// 				<div className="errorText">{error}</div>
-	// 				<button
-	// 					onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_ERROR })}
-	// 					className={clsx(controls.btn, controls.btnDanger)}
-	// 				>
-	// 					Clear error
-	// 				</button>
-	// 			</div>
-	// 		)}
-	// 		{filterError && (
-	// 			<div>
-	// 				<p className="errorText">
-	// 					Error filtering/sorting todos: {filterError}
-	// 				</p>
-	// 				<button
-	// 					onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_FILTER_ERROR })}
-	// 					className={clsx(controls.btn, controls.btnDanger)}
-	// 				>
-	// 					Clear Filter Error
-	// 				</button>
-	// 			</div>
-	// 		)}
-
-	// 		<SortBy
-	// 			sortby={sortBy}
-	// 			sortDirection={sortDirection}
-	// 			onSortByChange={handleSortByChange}
-	// 			onSortDirectionChange={handleSortDirectionChange}
-	// 		/>
-
-	// 		<StatusFilter />
-
-	// 		<div className={clsx(layout.row, layout.rowActions)}>
-	// 			<FilterInput
-	// 				filterTerm={filterTerm}
-	// 				onFilterChange={handleFilterChange}
-	// 			/>
-
-	// 			<button
-	// 				type="button"
-	// 				className={controls.btn}
-	// 				onClick={() => dispatch({ type: TODO_ACTIONS.RESET_FILTERS })}
-	// 				disabled={!filterTerm}
-	// 			>
-	// 				Reset filter
-	// 			</button>
-	// 		</div>
-
-	// 		<TodoForm onAddTodo={addTodo} />
-
-	// 		<div>{isTodoListLoading && <Loading />}</div>
-
-	// 		<TodoList
-	// 			todoList={todoList}
-	// 			onCompleteTodo={completeTodo}
-	// 			onUpdateTodo={updateTodo}
-	// 			dataVersion={dataVersion}
-	// 			onDeleteTodo={deleteTodo}
-	// 			statusFilter={statusFilter}
-	// 		/>
-	// 	</>
-	// );
-
 	return (
 		<div className={styles.page}>
 			{error && (
@@ -385,15 +319,14 @@ const TodosPage = () => {
 				</div>
 			)}
 
-			<div className={styles.head}>
-				<h1 className={styles.title}>Todos</h1>
-				<p className={styles.subtitle}>Sort, filter and manage your tasks</p>
-			</div>
-
-			<section className={styles.card}>
+			<section className={layout.card}>
+				<div className={layout.pageHead}>
+					<h1 className={layout.pageTitle}>Todos</h1>
+					<p className={layout.pageSubtitle}>Sort, filter and manage your tasks</p>
+				</div>
 				<div className={styles.cardHeader}>
-					<div>
-						<h2 className={styles.cardTitle}>Filters</h2>
+					<div className={styles.cardHeaderText}>
+						<h2 className={layout.sectionTitle}>Filters</h2>
 						<p className={styles.cardHint}>
 							Use search and sorting to find tasks faster
 						</p>
@@ -444,10 +377,9 @@ const TodosPage = () => {
 				</div>
 			</section>
 
-
-			<section className={styles.card}>
+			<section className={layout.card}>
 				<div className={styles.cardHeaderCompact}>
-					<h2 className={styles.cardTitle}>Add todo</h2>
+					<h2 className={layout.sectionTitle}>Add todo</h2>
 					<p className={styles.cardHint}>Write a short title and press Add</p>
 				</div>
 
@@ -456,9 +388,9 @@ const TodosPage = () => {
 				</div>
 			</section>
 
-			<section className={styles.card}>
+			<section className={layout.card}>
 				<div className={styles.cardHeaderCompact}>
-					<h2 className={styles.cardTitle}>List</h2>
+					<h2 className={layout.sectionTitle}>List</h2>
 					<p className={styles.cardHint}>
 						{isTodoListLoading
 							? "Loading…"
@@ -472,16 +404,14 @@ const TodosPage = () => {
 					</div>
 				)}
 
-
-					<TodoList
-						todoList={todoList}
-						onCompleteTodo={completeTodo}
-						onUpdateTodo={updateTodo}
-						dataVersion={dataVersion}
-						onDeleteTodo={deleteTodo}
-						statusFilter={statusFilter}
-					/>
-
+				<TodoList
+					todoList={todoList}
+					onCompleteTodo={completeTodo}
+					onUpdateTodo={updateTodo}
+					dataVersion={dataVersion}
+					onDeleteTodo={deleteTodo}
+					statusFilter={statusFilter}
+				/>
 			</section>
 		</div>
 	);

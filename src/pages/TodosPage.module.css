@@ -5,25 +5,27 @@
 
 /* Header */
 .head {
-	margin: 6px 0 16px;
+	margin: 0 0 16px 0;
+	border-bottom: 1px solid var(--border);
+	padding-bottom: 16px;
 }
 
 .title {
 	margin: 0;
-	font-size: 30px;
+	font-size: 28px;
 	letter-spacing: -0.02em;
 }
 
 .subtitle {
-	margin: 8px 0 0;
+	margin: 10px 0 0;
 	color: var(--muted);
 	font-size: 14px;
 }
 
 .btnPrimary {
-	background: var(--primary) !important;
-	color: #fff !important;
-	border: none !important;
+	background: var(--primary);
+	color: #fff;
+	border: none;
 	font-weight: 600;
 	box-shadow: 0 6px 14px rgba(99, 102, 241, 0.35);
 }
@@ -37,22 +39,13 @@
 }
 
 /* Soft cards */
-.card {
-	border-radius: 18px;
-	padding: 16px;
-	margin-top: 14px;
-	border: 1px solid rgba(0, 0, 0, 0.06);
-	background: rgba(255, 255, 255, 0.75);
-	backdrop-filter: blur(6px);
-	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-}
 
 .cardHeader {
 	display: flex;
 	align-items: flex-start;
 	justify-content: space-between;
 	gap: 12px;
-	margin-bottom: 12px;
+	margin: 20px 0;
 }
 
 .cardHeaderCompact {
@@ -84,8 +77,8 @@
 .block {
 	padding: 12px;
 	border-radius: 14px;
-	border: 1px solid rgba(0, 0, 0, 0.06);
-	background: rgba(255, 255, 255, 0.65);
+	border: 1px solid rgba(99, 102, 241, 0.12);
+	background: var(--card-bg);
 }
 
 .searchRow {
@@ -93,6 +86,21 @@
 	grid-template-columns: 1fr auto;
 	gap: 12px;
 	align-items: end;
+	padding: 12px;
+	border-radius: 14px;
+	border: 1px solid rgba(99, 102, 241, 0.12);
+	background: var(--card-bg);
+}
+
+.sectionDivider {
+	height: 1px;
+	background: linear-gradient(
+		to right,
+		transparent,
+		rgba(99, 102, 241, 0.25),
+		transparent
+	);
+	margin: 20px 0;
 }
 
 /* Todo form wrapper */
@@ -100,7 +108,7 @@
 	padding: 12px;
 	border-radius: 14px;
 	border: 1px solid rgba(0, 0, 0, 0.06);
-	background: rgba(255, 255, 255, 0.65);
+	background: var(--card-bg);
 }
 
 /* Loading */
@@ -115,6 +123,7 @@
 	justify-content: space-between;
 	gap: 12px;
 	padding: 12px 14px;
+	margin: 10px 0;
 	border-radius: 14px;
 	border: 1px solid rgba(239, 68, 68, 0.25);
 	background: rgba(239, 68, 68, 0.1);

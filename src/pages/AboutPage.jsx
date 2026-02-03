@@ -1,19 +1,20 @@
 import styles from "./AboutPage.module.css";
-import layout from "../shared/styles/layout.module.css"
+import layout from "../shared/styles/layout.module.css";
 import clsx from "clsx";
 
 const AboutPage = () => {
 	return (
 		<div className={clsx(layout.card, styles.about)}>
-			<div className={styles.aboutHeader}>
-				<h1 className="title">About</h1>
-				<p className={styles.aboutDescription}>
-					This Todo app helps you manage tasks and stay organized.
+			<div className={layout.pageHead}>
+				<h1 className={layout.pageTitle}>About</h1>
+				<p className={layout.pageSubtitle}>
+					This Todo app helps you manage tasks, track progress, and stay
+					organized with a clean and simple interface.
 				</p>
 			</div>
 
-			<div className={styles.aboutSection}>
-				<h2 className={styles.sectionTitle}>Features</h2>
+			<div className={layout.section}>
+				<h2 className={layout.sectionTitle}>Features</h2>
 				<ul className={styles.aboutList}>
 					<li className={styles.aboutItem}>Create and delete tasks</li>
 					<li className={styles.aboutItem}>Mark tasks as completed</li>
@@ -22,8 +23,8 @@ const AboutPage = () => {
 				</ul>
 			</div>
 
-			<div className={styles.aboutSection}>
-				<h2 className={styles.sectionTitle}>Technologies</h2>
+			<div className={layout.section}>
+				<h2 className={layout.sectionTitle}>Technologies</h2>
 				<div className={styles.aboutTechGrid}>
 					<div className={styles.aboutTechCard}>
 						<div className={styles.aboutTechTitle}>React</div>
@@ -35,7 +36,9 @@ const AboutPage = () => {
 					</div>
 					<div className={styles.aboutTechCard}>
 						<div className={styles.aboutTechTitle}>Vite</div>
-						<div className={styles.aboutTechText}>Fast development build tool</div>
+						<div className={styles.aboutTechText}>
+							Fast development build tool
+						</div>
 					</div>
 				</div>
 			</div>

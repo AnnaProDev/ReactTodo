@@ -15,20 +15,51 @@
 	border-radius: var(--radius);
 	box-shadow: var(--shadow);
 	padding: 22px;
+	margin-top: 14px;
 }
 
 /* Sections */
 .section {
-	margin-top: 18px;
-	padding-top: 18px;
-	border-top: 1px solid var(--border);
+	padding-top: 10px;
 }
 
 .sectionTitle {
-	margin: 0 0 12px;
+	margin: 0;
+	font-size: 16px;
+	letter-spacing: -0.01em;
+}
+
+/* Page header: H1 + subtitle */
+.pageHead {
+	display: grid;
+	gap: 6px;
+	margin-bottom: 12px;
+	padding-bottom: 14px;
+	border-bottom: 1px solid var(--border);
+}
+
+.pageTitle {
+	margin: 0;
+	font-size: 28px;
+	letter-spacing: -0.02em;
+}
+
+.pageSubtitle {
+	margin: 0;
 	font-size: 14px;
 	color: var(--muted);
-	font-weight: 600;
+}
+
+/* Divider like About/Profile */
+.divider {
+	height: 1px;
+	background: linear-gradient(
+		to right,
+		transparent,
+		rgba(99, 102, 241, 0.25),
+		transparent
+	);
+	margin: 14px 0;
 }
 
 /* ========== Forms ========== */

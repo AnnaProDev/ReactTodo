@@ -1,5 +1,5 @@
 .profile {
-	margin-top: 50px;
+	margin-top: 14px;
 }
 
 .header {
@@ -17,7 +17,7 @@
 }
 
 .subtitle {
-	margin: 6px 0 0;
+	margin: 10px 0 0;
 	color: var(--muted);
 	font-size: 14px;
 }
@@ -37,12 +37,13 @@
 	padding: 10px 12px;
 	border: 1px solid rgba(0, 0, 0, 0.06);
 	border-radius: 12px;
-	background: rgba(255, 255, 255, 0.7);
+	background: var(--card-bg);
 }
 
 .kvKey {
 	color: var(--muted);
 	font-size: 13px;
+	font-weight: 600;
 }
 
 .badge,
@@ -104,6 +105,7 @@
 	border-radius: 14px;
 	border: 1px solid rgba(0, 0, 0, 0.06);
 	background: rgba(255, 255, 255, 0.75);
+	box-shadow: var(--shadow-soft);
 }
 
 .statLabel {
@@ -125,6 +127,7 @@
 	border-radius: 14px;
 	border: 1px solid rgba(0, 0, 0, 0.06);
 	background: rgba(255, 255, 255, 0.75);
+	box-shadow: var(--shadow-soft);
 }
 
 .progressTop {
