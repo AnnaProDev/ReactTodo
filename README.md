@@ -1,42 +1,85 @@
-# React Todo List App
+# ✅ ToDo App — React Project
 
-A simple and clean React-based Todo List application that allows users to add, delete, and manage daily tasks. This project is perfect for practicing React fundamentals such as components, props, state, and basic event handling.
+![React](https://img.shields.io/badge/React-18-blue?logo=react)
+![Vite](https://img.shields.io/badge/Vite-build%20tool-646CFF?logo=vite)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-## ✨ Features
-- Add new tasks  
-- Mark tasks as completed  
-- Delete tasks  
-- Responsive UI  
-- Clean and simple structure ideal for learning React
+A modern Todo application built with React.  
+This project was created as part of my **frontend portfolio** to demonstrate practical React skills for junior frontend roles.
 
-## 📦 Installation
+---
 
-Make sure you have **Node.js** and **npm** installed.
+## 💼 Why This Project
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/AnnaProDev/ReactTodo.git
-   ```
+This project shows that I can:
+- Build React applications from scratch
+- Manage state with `useReducer`
+- Use `React Router` for navigation
+- Implement protected routes
+- Write clean, readable, and structured code
+- Build simple and user-friendly interfaces
 
-2. Navigate into the project folder:
-   ```bash
-   cd ReactTodo
-   ```
+---
 
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
+## 🚀 Live Demo
+https://your-todo-app.netlify.app
 
-## 🚀 Run the development server
+---
 
-Start the development server:
-   ```bash
-   npm run dev
-   ```
+## 📸 Screenshots
 
-This will run the app on:
+### About page
+- Project description  
+- Key features  
+- Technologies used
+  
+<img src="https://github.com/user-attachments/assets/5facb79b-fe86-44d0-bea2-9baf7b088475"
+     alt="Todo App - About page"
+     width="600" />
+---
 
-👉 http://localhost:3001
+### Todos page
+- Manage a todo list  
+- Filter, sort and search tasks  
+- Add, update, delete and complete todos  
 
+<img src="https://github.com/user-attachments/assets/87b1963d-fd22-4d4d-b99a-7fe624557856"
+     alt="Todo App - Todos page"
+     width="600" />
 
+---
+
+### Profile page
+- User information  
+- Todo statistics  
+- Completion progress bar
+  
+<img src="https://github.com/user-attachments/assets/709afda5-0441-42be-8d3d-acdcc280a530"
+     alt="Todo App - Profile page"
+     width="600" />
+
+---
+
+## 🛠️ Tech Stack
+
+- React 18
+- React Router
+- Vite
+- CSS Modules
+- Context API
+- useReducer
+
+---
+
+## 📌 Key Takeaways
+
+- Improved understanding of React state management
+- Hands-on experience with routing and protected pages
+- Practice in building reusable UI components
+- Focus on clean code and simple UX
+
+---
+
+## 📜 License
+
+MIT License
