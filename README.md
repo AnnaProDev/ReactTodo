@@ -46,7 +46,6 @@ https://your-todo-app.netlify.app
 <img src="https://github.com/user-attachments/assets/87b1963d-fd22-4d4d-b99a-7fe624557856"
      alt="Todo App - Todos page"
      width="600" />
-
 ---
 
 ### Profile page
