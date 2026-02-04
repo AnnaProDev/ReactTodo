@@ -14,8 +14,8 @@ This project was created as part of my **frontend portfolio** to demonstrate pra
 This project shows that I can:
 - Build React applications from scratch
 - Manage state with `useReducer`
-- Use `React Router` for navigation
-- Implement protected routes
+- Use `React Router` for navigation, URL-based filtering, and a custom 404 page
+- Implement protected routes with authentication context
 - Write clean, readable, and structured code
 - Build simple and user-friendly interfaces
 
