@@ -80,6 +80,26 @@ https://your-todo-app.netlify.app
 
 ---
 
-## 📜 License
+## 🏗️ Installation & Setup
 
-MIT License
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/AnnaProDev/ReactTodo.git
+   cd ReactToDo
+   
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:5173](http://localhost:3001) in your browser
+
+
+---
