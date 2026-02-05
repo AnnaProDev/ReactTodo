@@ -5,6 +5,9 @@ import controls from "../shared/styles/controls.module.css";
 import styles from "./LoginPage.module.css";
 import clsx from "clsx";
 
+import { loginSchema, LIMITS } from "../utils/todoValidation";
+import { sanitizeText } from "../utils/sanitize";
+
 function LoginPage() {
 	const { login, isAuthenticated } = useAuth();
 	const navigate = useNavigate();
@@ -27,16 +30,29 @@ function LoginPage() {
 	// Handle login form submission
 	async function handleSubmit(e) {
 		e.preventDefault();
-		// ... existing login logic
+
 		setFormError("");
-		const result = await login(email, password);
 
-		if (!result.success) {
-			setFormError(result.error || "Login failed");
-		}
+		try {
+			const validated = loginSchema.parse({ email, password });
 
-		if (result.success) {
-			// useEffect will handle redirect
+			const safeEmail = sanitizeText(validated.email).toLowerCase();
+			const safePassword = sanitizeText(validated.password);
+
+			const result = await login(safeEmail, safePassword);
+
+			if (!result.success) {
+				setFormError(result.error || "Login failed");
+			}
+		} catch (error) {
+			// Handle validation errors safely
+			if (error?.errors) {
+				const message = error.errors.map((err) => err.message).join(" ");
+				setFormError(message);
+				return;
+			}
+			// Unknown error
+			setFormError("Something went wrong. Please try again.");
 		}
 	}
 
@@ -56,6 +72,9 @@ function LoginPage() {
 						<input
 							required
 							type="email"
+							id="email"
+							name="email"
+							maxLength={LIMITS.email}
 							value={email}
 							onChange={(event) => {
 								setEmail(event.target.value);
@@ -71,6 +90,7 @@ function LoginPage() {
 						<input
 							required
 							type="password"
+							maxLength={LIMITS.password}
 							name="password"
 							id="password"
 							value={password}

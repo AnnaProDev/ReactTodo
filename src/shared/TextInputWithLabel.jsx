@@ -8,6 +8,7 @@ function TextInputWithLabel({ elementId, labelText, onChange, value }) {
 				type="text"
 				id={elementId}
 				value={value}
+				name={elementId}
 				onChange={onChange}
 				className={controls.input}
 			/>

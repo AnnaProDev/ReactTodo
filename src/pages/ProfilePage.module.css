@@ -35,7 +35,7 @@
 	justify-content: space-between;
 	gap: 12px;
 	padding: 10px 12px;
-	border: 1px solid rgba(0, 0, 0, 0.06);
+	border: var(--border);
 	border-radius: 12px;
 	background: var(--card-bg);
 }
@@ -63,7 +63,7 @@
 }
 
 .badge {
-	background: rgba(0, 0, 0, 0.05);
+	background: rgba(0, 0, 0, 0.06);
 }
 
 .badgeSuccess {
@@ -71,7 +71,7 @@
 }
 
 .badgeMuted {
-	background: rgba(107, 114, 128, 0.15);
+	background: var(--muted);
 }
 
 /* --- Errors / loading --- */
@@ -103,8 +103,8 @@
 .statCard {
 	padding: 14px;
 	border-radius: 14px;
-	border: 1px solid rgba(0, 0, 0, 0.06);
-	background: rgba(255, 255, 255, 0.75);
+	border: var(--border);
+	background: var(--card);
 	box-shadow: var(--shadow-soft);
 }
 
@@ -125,8 +125,8 @@
 	margin-top: 14px;
 	padding: 14px;
 	border-radius: 14px;
-	border: 1px solid rgba(0, 0, 0, 0.06);
-	background: rgba(255, 255, 255, 0.75);
+	border: var(--border);
+	background: var(--card);
 	box-shadow: var(--shadow-soft);
 }
 
@@ -149,14 +149,14 @@
 
 .progressTrack {
 	height: 10px;
-	border-radius: 999px;
+	border-radius: 50px;
 	background: rgba(0, 0, 0, 0.06);
 	overflow: hidden;
 }
 
 .progressFill {
 	height: 100%;
-	border-radius: 999px;
+	border-radius: 50px;
 	background: var(--primary);
 }
 

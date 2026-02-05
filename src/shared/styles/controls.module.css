@@ -10,8 +10,8 @@
 	height: 40px;
 	width: 100%;
 	padding: 11px 12px;
-	border: 1px solid var(--border);
-	background: #fff;
+	border: 1px solid var(--border-color);
+	background: var(--card);
 	border-radius: 12px;
 	font-size: 14px;
 	outline: none;
@@ -42,7 +42,7 @@
 	border: 1px solid transparent;
 
 	background: var(--primary);
-	color: #fff;
+	color: var(--card);
 	font-size: 14px;
 	font-weight: 700;
 
@@ -82,7 +82,7 @@
 .btnSecondary {
 	background: #f3f4f6;
 	color: var(--text);
-	border-color: var(--border);
+	border-color: var(--border-color);
 	box-shadow: none;
 }
 
@@ -101,7 +101,7 @@
 .btnGhost {
 	background: transparent;
 	color: var(--text);
-	border-color: var(--border);
+	border-color: var(--border-color);
 	box-shadow: none;
 }
 
@@ -113,7 +113,7 @@
 	padding: 12px;
 	border-radius: 14px;
 	border: 1px solid rgba(0, 0, 0, 0.06);
-	background: #f8f9ff;
+	background: var(--card-bg);
 }
 
 /* ===== Mobile controls ===== */

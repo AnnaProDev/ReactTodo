@@ -45,7 +45,6 @@ export const initialTodoState = {
 };
 
 export function todoReducer(state, action) {
-	console.log("Dispatched action:", action.type, action.payload);
 
 	switch (action.type) {
 		// ---------------- FETCH ----------------
@@ -149,7 +148,6 @@ export function todoReducer(state, action) {
 				error: "",
 			};
 		case TODO_ACTIONS.DELETE_TODO_ERROR:
-			console.log("DELETE_TODO_ERROR payload:", action.payload);
 			return {
 				...state,
 				todoList: [action.payload.originalToDo, ...state.todoList],

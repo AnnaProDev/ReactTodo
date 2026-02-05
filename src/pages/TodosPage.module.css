@@ -6,7 +6,7 @@
 /* Header */
 .head {
 	margin: 0 0 16px 0;
-	border-bottom: 1px solid var(--border);
+	border-bottom: 1px solid var(--muted);
 	padding-bottom: 16px;
 }
 
@@ -104,6 +104,7 @@
 }
 
 /* Todo form wrapper */
+
 .formWrap {
 	padding: 12px;
 	border-radius: 14px;
@@ -140,8 +141,8 @@
 
 /* Buttons look: keep your controls.btn base */
 .btnSecondary {
-	background: rgba(0, 0, 0, 0.04) !important;
-	border: 1px solid rgba(0, 0, 0, 0.1) !important;
+	background: rgba(0, 0, 0, 0.04);
+	border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive */

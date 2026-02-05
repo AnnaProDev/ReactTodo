@@ -7,11 +7,3 @@ export function sanitizeText(input) {
 	});
 }
 
-export function sanitizeSvgIcon({ svgString }) {
-	// SAFE - DOMPurify removes script tags and other dangerous elements
-	const sanitizedSvg = DOMPurify.sanitize(svgString, {
-		USE_PROFILES: { svg: true, svgFilters: true },
-	});
-
-	return <span dangerouslySetInnerHTML={{ __html: sanitizedSvg }} />;
-}

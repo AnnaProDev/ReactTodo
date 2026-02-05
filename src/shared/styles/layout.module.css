@@ -11,7 +11,7 @@
 
 .card {
 	background: var(--card);
-	border: 1px solid var(--border);
+	border: var(--border);
 	border-radius: var(--radius);
 	box-shadow: var(--shadow);
 	padding: 22px;
@@ -35,7 +35,7 @@
 	gap: 6px;
 	margin-bottom: 12px;
 	padding-bottom: 14px;
-	border-bottom: 1px solid var(--border);
+	border-bottom: 1px solid var(--border-color);
 }
 
 .pageTitle {

@@ -1,5 +1,6 @@
 import TextInputWithLabel from "../../../shared/TextInputWithLabel";
-import { isValidTodoTitle } from "../../../utils/todoValidation";
+import { isValidTodoTitle, todoTitleSchema } from "../../../utils/todoValidation";
+import { sanitizeText } from "../../../utils/sanitize";
 import { useEditableTitle } from "../../../hooks/useEditableTitle";
 import styles from "./TodoListItem.module.css";
 import controls from "../../../shared/styles/controls.module.css";
@@ -21,7 +22,16 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo, onDeleteTodo }) {
 
 		const finalTitle = finishEdit();
 
-		onUpdateTodo({ ...todo, title: finalTitle });
+		// validate BEFORE sanitize
+		const parsed = todoTitleSchema.safeParse(finalTitle);
+		if (!parsed.success) {
+			return;
+		}
+
+		// sanitize AFTER validation
+		const safeTitle = sanitizeText(parsed.data);
+
+		onUpdateTodo({ ...todo, title: safeTitle });
 	}
 
 	return (

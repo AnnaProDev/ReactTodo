@@ -16,12 +16,14 @@ import Loading from "../shared/Loading.jsx";
 import clsx from "clsx";
 import controls from "../shared/styles/controls.module.css";
 import styles from "./TodosPage.module.css";
-import layout from "../shared/styles/layout.module.css"
+import layout from "../shared/styles/layout.module.css";
+import { todoTitleSchema } from "../utils/todoValidation";
+import { sanitizeText } from "../utils/sanitize";
 
 const TodosPage = () => {
 	const { token } = useAuth();
 	const [searchParams] = useSearchParams();
-	// Get status filter from URL, default to 'all'
+
 	const statusFilter = searchParams.get("status") || "all";
 
 	const [
@@ -109,9 +111,23 @@ const TodosPage = () => {
 	}, [token, baseUrl, sortBy, sortDirection, debouncedFilterTerm]);
 
 	async function addTodo(title) {
+		const parsed = todoTitleSchema.safeParse(title);
+
+		if (!parsed.success) {
+			dispatch({
+				type: TODO_ACTIONS.FETCH_ERROR,
+				payload: {
+					message: parsed.error.issues?.[0]?.message || "Invalid title.",
+				},
+			});
+			return;
+		}
+
+		const safeTitle = sanitizeText(parsed.data);
+
 		const newTodo = {
 			id: Date.now(),
-			title: title,
+			title: safeTitle,
 			isCompleted: false,
 		};
 
@@ -120,7 +136,7 @@ const TodosPage = () => {
 		try {
 			const response = await fetch(`${baseUrl}/tasks`, {
 				method: "POST",
-				body: JSON.stringify({ title, isCompleted: false }),
+				body: JSON.stringify({ title: safeTitle, isCompleted: false }),
 				headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": token },
 				credentials: "include",
 			});
@@ -194,9 +210,30 @@ const TodosPage = () => {
 		const originalToDo = todoList.find((todo) => todo.id === editedTodo.id);
 		if (!originalToDo) return;
 
+		const parsed = todoTitleSchema.safeParse(editedTodo.title);
+
+		if (!parsed.success) {
+			dispatch({
+				type: TODO_ACTIONS.UPDATE_TODO_ERROR,
+				payload: {
+					id: editedTodo.id,
+					originalToDo,
+					error: {
+						name: "Validation",
+						message: parsed.error.issues[0].message,
+					},
+				},
+			});
+			return;
+		}
+
+		const safeTitle = sanitizeText(parsed.data);
+
+		const safeEditedTodo = { ...editedTodo, title: safeTitle };
+
 		const updatedTodos = todoList.map((todo) => {
-			if (todo.id === editedTodo.id) {
-				return { ...todo, ...editedTodo };
+			if (todo.id === safeEditedTodo.id) {
+				return { ...todo, ...safeEditedTodo };
 			} else {
 				return todo;
 			}
@@ -205,11 +242,11 @@ const TodosPage = () => {
 		dispatch({ type: TODO_ACTIONS.UPDATE_TODO_START, payload: updatedTodos });
 
 		try {
-			const response = await fetch(`${baseUrl}/tasks/${editedTodo.id}`, {
+			const response = await fetch(`${baseUrl}/tasks/${safeEditedTodo.id}`, {
 				method: "PATCH",
 				body: JSON.stringify({
-					title: editedTodo.title,
-					isCompleted: editedTodo.isCompleted,
+					title: safeEditedTodo.title,
+					isCompleted: safeEditedTodo.isCompleted,
 					createdTime: originalToDo.createdTime,
 				}),
 				headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": token },
@@ -223,7 +260,7 @@ const TodosPage = () => {
 				dispatch({
 					type: TODO_ACTIONS.UPDATE_TODO_ERROR,
 					payload: {
-						id: editedTodo.id,
+						id: safeEditedTodo.id,
 						originalToDo,
 						error: { name: "Request", message: "Request failed" },
 					},
@@ -232,7 +269,7 @@ const TodosPage = () => {
 		} catch (error) {
 			dispatch({
 				type: TODO_ACTIONS.UPDATE_TODO_ERROR,
-				payload: { id: editedTodo.id, originalToDo, error },
+				payload: { id: safeEditedTodo.id, originalToDo, error },
 			});
 		}
 	}
@@ -293,36 +330,12 @@ const TodosPage = () => {
 
 	return (
 		<div className={styles.page}>
-			{error && (
-				<div className={styles.alert}>
-					<div className={styles.alertText}>{error}</div>
-					<button
-						onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_ERROR })}
-						className={clsx(controls.btn, controls.btnDanger, styles.alertBtn)}
-					>
-						Clear error
-					</button>
-				</div>
-			)}
-
-			{filterError && (
-				<div className={styles.alert}>
-					<div className={styles.alertText}>
-						Error filtering/sorting todos: {filterError}
-					</div>
-					<button
-						onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_FILTER_ERROR })}
-						className={clsx(controls.btn, controls.btnDanger, styles.alertBtn)}
-					>
-						Clear Filter Error
-					</button>
-				</div>
-			)}
-
 			<section className={layout.card}>
 				<div className={layout.pageHead}>
 					<h1 className={layout.pageTitle}>Todos</h1>
-					<p className={layout.pageSubtitle}>Sort, filter and manage your tasks</p>
+					<p className={layout.pageSubtitle}>
+						Sort, filter and manage your tasks
+					</p>
 				</div>
 				<div className={styles.cardHeader}>
 					<div className={styles.cardHeaderText}>
@@ -377,6 +390,20 @@ const TodosPage = () => {
 				</div>
 			</section>
 
+			{filterError && (
+				<div className={styles.alert}>
+					<div className={styles.alertText}>
+						Error filtering/sorting todos: {filterError}
+					</div>
+					<button
+						onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_FILTER_ERROR })}
+						className={clsx(controls.btn, controls.btnDanger, styles.alertBtn)}
+					>
+						Clear Filter Error
+					</button>
+				</div>
+			)}
+
 			<section className={layout.card}>
 				<div className={styles.cardHeaderCompact}>
 					<h2 className={layout.sectionTitle}>Add todo</h2>
@@ -387,6 +414,18 @@ const TodosPage = () => {
 					<TodoForm onAddTodo={addTodo} />
 				</div>
 			</section>
+
+			{error && (
+				<div className={styles.alert}>
+					<div className={styles.alertText}>{error}</div>
+					<button
+						onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_ERROR })}
+						className={clsx(controls.btn, controls.btnDanger, styles.alertBtn)}
+					>
+						Clear error
+					</button>
+				</div>
+			)}
 
 			<section className={layout.card}>
 				<div className={styles.cardHeaderCompact}>

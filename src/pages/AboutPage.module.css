@@ -22,7 +22,7 @@
 	border-radius: 12px;
 
 	background: var(--card-bg);
-	border: 1px solid rgba(229, 231, 235, 0.9);
+	border: var(--border);
 	
 }
 
@@ -51,9 +51,9 @@
 	padding: 14px;
 	border-radius: 12px;
 
-	background: #fff;
-	border: 1px solid rgba(229, 231, 235, 0.9);
-	box-shadow: var(--shadow-soft);
+	background: var(--card);
+	border: var(--border);
+	box-shadow: var(--shadow);
 
 	display: grid;
 	gap: 6px;
