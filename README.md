@@ -43,10 +43,9 @@ https://your-todo-app.netlify.app
 - Filter, sort and search tasks  
 - Add, update, delete and complete todos  
 
-<img src="https://github.com/user-attachments/assets/87b1963d-fd22-4d4d-b99a-7fe624557856"
+<img src="https://github.com/user-attachments/assets/caffba03-b671-478e-bba1-3fcbe2c2f92b"
      alt="Todo App - Todos page"
      width="600" />
-
 ---
 
 ### Profile page
