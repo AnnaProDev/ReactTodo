@@ -102,3 +102,41 @@ https://your-todo-app.netlify.app
 
 
 ---
+## 🎨 Design Decisions
+
+The UI is intentionally minimal and clean to keep the focus on usability and readability.
+
+- **CSS Modules** were chosen to ensure style isolation and avoid global CSS conflicts  
+- Layout is based on simple flex and grid patterns for clarity and responsiveness  
+- Consistent spacing, typography, and button styles are shared across pages  
+- The interface prioritizes accessibility and ease of use over visual complexity  
+- Mobile adaptation was considered from the start to support smaller screens  
+
+The goal was to demonstrate practical, maintainable styling rather than heavy visual effects.
+
+---
+
+## 🔮 Future Improvements
+
+With more time, the following features could be added:
+
+- Drag & drop support for reordering todos
+- Advanced filters (priority, due date)
+- Unit and integration tests (Jest / React Testing Library)
+- Dark mode toggle
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+
+You are free to use, modify, and distribute this project with proper attribution.  
+See the `LICENSE` file for more details.
+
+---
+
+## 📬 Contact
+
+- **GitHub:** https://github.com/AnnaProDev  
+- **Portfolio:** https://annaprodev.com
