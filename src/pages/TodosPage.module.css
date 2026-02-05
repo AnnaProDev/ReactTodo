@@ -152,6 +152,11 @@
 
 	.cardHeader {
 		flex-direction: column;
+		align-items: normal;
+	}
+
+	.cardHeaderCompact {
+		flex-direction: column;
 	}
 
 	.searchRow {

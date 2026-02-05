@@ -74,6 +74,7 @@
 	align-items: end;
 }
 
+
 @media (min-width: 640px) {
 	.row.row2 {
 		grid-template-columns: 1fr 1fr;
@@ -85,5 +86,48 @@
 	.rowActions .btn {
 		width: 160px;
 		justify-self: end;
+	}
+}
+
+/* ===== Mobile typography & spacing ===== */
+@media (max-width: 720px) {
+	.app {
+		padding: 18px 12px;
+	}
+
+	.card {
+		padding: 16px;
+	}
+
+	/* Page header */
+	.pageHead {
+		gap: 4px;
+		margin-bottom: 10px;
+		padding-bottom: 10px;
+	}
+
+	.pageTitle {
+		font-size: 22px;
+		line-height: 1.15;
+		letter-spacing: -0.02em;
+	}
+
+	.pageSubtitle {
+		font-size: 13px;
+		line-height: 1.35;
+	}
+
+	/* Section titles like "Filters", "List" */
+	.sectionTitle {
+		font-size: 15px;
+	}
+
+	.divider {
+		margin: 10px 0;
+	}
+
+	/* Forms spacing a bit tighter */
+	.row {
+		gap: 14px;
 	}
 }

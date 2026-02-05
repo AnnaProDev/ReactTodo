@@ -2,12 +2,13 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	min-height: 52px;
 
 	padding: 12px 14px;
 	border-radius: 12px;
 
-	background: #fff;
-	border: 1px solid rgba(229, 231, 235, 0.9);
+	background: var(--card);
+	border: 1px solid var(--border);
 
 	transition:
 		transform 0.06s ease,
@@ -17,7 +18,13 @@
 
 .todoItem:hover {
 	background: #fafafa;
-	box-shadow: 0 6px 16px rgba(17, 24, 39, 0.06);
+	box-shadow: var(--shadow);
+}
+.textRow {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	min-width: 0;
 }
 
 .checkbox {
@@ -26,6 +33,7 @@
 	cursor: pointer;
 	margin-right: 10px;
 	accent-color: var(--primary);
+	display: block;
 }
 
 .todoText {
@@ -36,6 +44,63 @@
 }
 
 .todoTextDone {
-	color: #9ca3af;
+	color: var(--muted);
 	text-decoration: line-through;
+}
+
+.deleteIcon {
+	margin-right: 10px;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+	color: var(--muted);
+	transition:
+		color 0.2s ease,
+		transform 0.15s ease;
+}
+
+.deleteIcon:hover {
+	color: var(--primary-hover);
+	transform: scale(1.1);
+}
+
+.deleteIcon:active {
+	transform: scale(0.95);
+}
+
+.deleteIcon:focus-visible {
+	outline: 2px solid var(--primary-hover);
+	outline-offset: 4px;
+	border-radius: 6px;
+}
+
+/* ===== Mobile Todo List ===== */
+@media (max-width: 720px) {
+	.todoItem {
+		padding: 10px 12px;
+		border-radius: 10px;
+	}
+
+	.todoText {
+		font-size: 14px;
+	}
+
+	.checkbox {
+		width: 16px;
+		height: 16px;
+		margin-right: 8px;
+	}
+
+	.deleteIcon {
+		width: 18px;
+		height: 18px;
+		margin-right: 6px;
+	}
+}
+
+@media (hover: none) {
+	.todoItem:hover {
+		box-shadow: none;
+		background: var(--card);
+	}
 }
