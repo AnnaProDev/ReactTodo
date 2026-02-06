@@ -22,7 +22,7 @@ This project shows that I can:
 ---
 
 ## 🚀 Live Demo
-react-todo-app-annaprodevs-projects.vercel.app
+https://react-todo-app-annaprodevs-projects.vercel.app
 
 ---
 
