@@ -42,9 +42,19 @@ function LoginPage() {
 			const result = await login(safeEmail, safePassword);
 
 			if (!result.success) {
-				setFormError(result.error || "Login failed");
+				setFormError(result.error || "Invalid email or password");
+
+				console.error("Login failed", {
+					scope: "LoginPage/login",
+					email: safeEmail,
+					result,
+				});
 			}
 		} catch (error) {
+			console.error("Login error", {
+				scope: "LoginPage/handleSubmit",
+				error,
+			});
 			// Handle validation errors safely
 			if (error?.errors) {
 				const message = error.errors.map((err) => err.message).join(" ");

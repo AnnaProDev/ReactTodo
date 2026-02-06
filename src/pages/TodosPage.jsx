@@ -346,6 +346,19 @@ const TodosPage = () => {
 					<TodoForm onAddTodo={addTodo} />
 				</div>
 			</section>
+			
+			{error && (
+				<div className={styles.alert}>
+					<div className={styles.alertText}>{error}</div>
+					<button
+						onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_ERROR })}
+						className={clsx(controls.btn, controls.btnDanger, styles.alertBtn)}
+					>
+						Clear error
+					</button>
+				</div>
+			)}
+
 			<section className={layout.card}>
 				<div className={styles.cardHeaderCompact}>
 					<h2 className={layout.sectionTitle}>List</h2>
@@ -371,17 +384,6 @@ const TodosPage = () => {
 					statusFilter={statusFilter}
 				/>
 			</section>
-			{error && (
-				<div className={styles.alert}>
-					<div className={styles.alertText}>{error}</div>
-					<button
-						onClick={() => dispatch({ type: TODO_ACTIONS.CLEAR_ERROR })}
-						className={clsx(controls.btn, controls.btnDanger, styles.alertBtn)}
-					>
-						Clear error
-					</button>
-				</div>
-			)}
 
 			{filterError && (
 				<div className={styles.alert}>
@@ -396,6 +398,7 @@ const TodosPage = () => {
 					</button>
 				</div>
 			)}
+
 			<section className={layout.card}>
 				<div className={styles.cardHeader}>
 					<div className={styles.cardHeaderText}>
