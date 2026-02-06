@@ -22,7 +22,7 @@ This project shows that I can:
 ---
 
 ## 🚀 Live Demo
-https://your-todo-app.netlify.app
+react-todo-app-annaprodevs-projects.vercel.app
 
 ---
 
