@@ -7,11 +7,6 @@
 		{
 			"source": "/tasks(.*)",
 			"destination": "https://ctd-learns-node-142tx.ondigitalocean.app/tasks$1"
-		},
-		{
-			"source": "/api(.*)",
-			"destination": "https://ctd-learns-node-142tx.ondigitalocean.app/api$1"
-		},
-		{ "source": "/(.*)", "destination": "/" }
+		}
 	]
 }
