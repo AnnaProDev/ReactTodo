@@ -1,16 +1,17 @@
 {
 	"rewrites": [
 		{
-			"source": "/user/(.*)",
-			"destination": "https://ctd-learns-node-142tx.ondigitalocean.app/user/$1"
+			"source": "/user(.*)",
+			"destination": "https://ctd-learns-node-142tx.ondigitalocean.app/user$1"
 		},
 		{
-			"source": "/api/(.*)",
-			"destination": "https://ctd-learns-node-142tx.ondigitalocean.app/api/$1"
+			"source": "/tasks(.*)",
+			"destination": "https://ctd-learns-node-142tx.ondigitalocean.app/tasks$1"
 		},
 		{
-			"source": "/(.*)",
-			"destination": "/"
-		}
+			"source": "/api(.*)",
+			"destination": "https://ctd-learns-node-142tx.ondigitalocean.app/api$1"
+		},
+		{ "source": "/(.*)", "destination": "/" }
 	]
 }
