@@ -32,7 +32,7 @@ const ProfilePage = () => {
 					credentials: "include",
 				};
 
-				const response = await fetch(`${baseUrl}/tasks`, options);
+				const response = await fetch(`/tasks`, options);
 
 				if (response.status === 401) {
 					throw new Error("Unauthorized");
