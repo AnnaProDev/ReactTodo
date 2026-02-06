@@ -61,7 +61,7 @@ const TodosPage = () => {
 				}
 				const params = new URLSearchParams(paramsObject);
 
-				const response = await fetch(`/tasks?${params}`, {
+				const response = await fetch(`${baseUrl}/tasks?${params}`, {
 					method: "GET",
 					headers: { "X-CSRF-TOKEN": token },
 					credentials: "include",
