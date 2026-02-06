@@ -22,7 +22,7 @@ This project shows that I can:
 ---
 
 ## 🚀 Live Demo
-https://your-todo-app.netlify.app
+https://react-todo-app-annaprodevs-projects.vercel.app
 
 ---
 
@@ -84,7 +84,7 @@ https://your-todo-app.netlify.app
 1. Clone the repository:
    ```bash
    git clone https://github.com/AnnaProDev/ReactTodo.git
-   cd ReactToDo
+   cd ReactTodo
    
 2. Install dependencies:
 
