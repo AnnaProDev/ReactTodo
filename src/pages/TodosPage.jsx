@@ -175,7 +175,7 @@ const TodosPage = () => {
 		dispatch({ type: TODO_ACTIONS.COMPLETE_TODO_START, payload: updatedList });
 
 		try {
-			const response = await fetch(`/tasks/${id}`, {
+			const response = await fetch(`${baseUrl}/tasks/${id}`, {
 				method: "PATCH",
 				body: JSON.stringify({
 					createdTime: originalTodo.createdTime,
