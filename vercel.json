@@ -1,12 +1,8 @@
 {
-	"rewrites": [
-		{
-			"source": "/user(.*)",
-			"destination": "https://ctd-learns-node-142tx.ondigitalocean.app/user$1"
-		},
-		{
-			"source": "/tasks(.*)",
-			"destination": "https://ctd-learns-node-142tx.ondigitalocean.app/tasks$1"
-		}
-	]
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
 }

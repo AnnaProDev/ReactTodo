@@ -74,7 +74,7 @@ function LoginPage() {
 					<p className={styles.subtitle}>Use your account to access todos</p>
 				</div>
 
-				<div className={styles.form}>
+				<form className={styles.form} onSubmit={handleSubmit}>
 					<div className={styles.field}>
 						<label className={controls.label} htmlFor="email">
 							Email
@@ -116,12 +116,11 @@ function LoginPage() {
 					<button
 						className={clsx(controls.btn, styles.btnPrimary)}
 						type="submit"
-						onClick={handleSubmit}
 						disabled={isAuthenticated}
 					>
 						{isAuthenticated ? "Logging in..." : "Log in"}
 					</button>
-				</div>
+				</form>
 			</div>
 		</div>
 	);
