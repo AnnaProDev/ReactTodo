@@ -39,9 +39,10 @@ https://react-todo-app-annaprodevs-projects.vercel.app
 ---
 
 ### Todos page
-- Manage a todo list  
-- Filter, sort and search tasks  
+- Manage a todo list
 - Add, update, delete and complete todos  
+- Filter, sort and search tasks  
+
 
 <img src="https://github.com/user-attachments/assets/9929c160-828d-499c-a491-560f87b7d3ef"
      alt="Todo App - Todos page"
