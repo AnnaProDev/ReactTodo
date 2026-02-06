@@ -84,7 +84,7 @@ https://react-todo-app-annaprodevs-projects.vercel.app
 1. Clone the repository:
    ```bash
    git clone https://github.com/AnnaProDev/ReactTodo.git
-   cd ReactToDo
+   cd ReactTodo
    
 2. Install dependencies:
 
