@@ -330,7 +330,6 @@ const TodosPage = () => {
 
 	return (
 		<div className={styles.page}>
-			
 			<section className={layout.card}>
 				<div className={layout.pageHead}>
 					<h1 className={layout.pageTitle}>Todos</h1>
@@ -338,6 +337,16 @@ const TodosPage = () => {
 						Sort, filter and manage your tasks
 					</p>
 				</div>
+				<div className={styles.cardHeaderCompact}>
+					<h2 className={layout.sectionTitle}>Add todo</h2>
+					<p className={styles.cardHint}>Write a short title and press Add</p>
+				</div>
+
+				<div className={styles.block}>
+					<TodoForm onAddTodo={addTodo} />
+				</div>
+			</section>
+			<section className={layout.card}>
 				<div className={styles.cardHeaderCompact}>
 					<h2 className={layout.sectionTitle}>List</h2>
 					<p className={styles.cardHint}>
@@ -373,16 +382,7 @@ const TodosPage = () => {
 					</button>
 				</div>
 			)}
-			<section className={layout.card}>
-				<div className={styles.cardHeaderCompact}>
-					<h2 className={layout.sectionTitle}>Add todo</h2>
-					<p className={styles.cardHint}>Write a short title and press Add</p>
-				</div>
 
-				<div className={styles.formWrap}>
-					<TodoForm onAddTodo={addTodo} />
-				</div>
-			</section>
 			{filterError && (
 				<div className={styles.alert}>
 					<div className={styles.alertText}>
@@ -418,6 +418,25 @@ const TodosPage = () => {
 					</button>
 				</div>
 				<div className={styles.filtersGrid}>
+					<div className={styles.filters}>
+						<div className={clsx(styles.block, styles.searchRow)}>
+							<FilterInput
+								filterTerm={filterTerm}
+								onFilterChange={handleFilterChange}
+							/>
+							<button
+								type="button"
+								className={clsx(controls.btn, styles.btnPrimary)}
+								onClick={() => dispatch({ type: TODO_ACTIONS.RESET_FILTERS })}
+								disabled={!filterTerm}
+							>
+								Reset filter
+							</button>
+						</div>
+						<div className={styles.block}>
+							<StatusFilter />
+						</div>
+					</div>
 					<div className={styles.block}>
 						<SortBy
 							sortby={sortBy}
@@ -425,26 +444,6 @@ const TodosPage = () => {
 							onSortByChange={handleSortByChange}
 							onSortDirectionChange={handleSortDirectionChange}
 						/>
-					</div>
-
-					<div className={styles.block}>
-						<StatusFilter />
-					</div>
-
-					<div className={styles.searchRow}>
-						<FilterInput
-							filterTerm={filterTerm}
-							onFilterChange={handleFilterChange}
-						/>
-
-						<button
-							type="button"
-							className={clsx(controls.btn, styles.btnPrimary)}
-							onClick={() => dispatch({ type: TODO_ACTIONS.RESET_FILTERS })}
-							disabled={!filterTerm}
-						>
-							Reset filter
-						</button>
 					</div>
 				</div>
 			</section>

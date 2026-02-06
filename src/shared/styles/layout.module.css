@@ -14,7 +14,7 @@
 	border: var(--border);
 	border-radius: var(--radius);
 	box-shadow: var(--shadow);
-	padding: 22px;
+	padding: 20px 24px;
 	margin-top: 14px;
 }
 
