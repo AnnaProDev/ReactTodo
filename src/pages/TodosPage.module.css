@@ -45,7 +45,7 @@
 	align-items: flex-start;
 	justify-content: space-between;
 	gap: 12px;
-	margin: 20px 0;
+	margin: 0 0 10px 0;
 }
 
 .cardHeaderCompact {
@@ -75,7 +75,7 @@
 }
 
 .block {
-	padding: 12px;
+	padding: 10px;
 	border-radius: 14px;
 	border: 1px solid rgba(99, 102, 241, 0.12);
 	background: var(--card-bg);

@@ -1,11 +1,12 @@
 import { z } from "zod";
 
+// Centralized input length limits to keep validation consistent
 export const LIMITS = {
 	todoTitle: 120,
 	email: 254,
 	password: 128,
 };
-
+// Schema for validating todo titles before submission
 export const todoTitleSchema = z
 	.string()
 	.trim()
@@ -14,7 +15,8 @@ export const todoTitleSchema = z
 		LIMITS.todoTitle,
 		`Title must be ${LIMITS.todoTitle} characters or less.`,
 	);
-
+// Schema for validating login form input
+// Ensures correct format and normalizes email value
 export const loginSchema = z.object({
 	email: z
 		.string()
@@ -31,7 +33,7 @@ export const loginSchema = z.object({
 			`Password must be ${LIMITS.password} characters or less.`,
 		),
 });
-
+// Lightweight helper for quick title checks in UI logic
 export function isValidTodoTitle(title) {
 	return title.trim() !== "";
 }
