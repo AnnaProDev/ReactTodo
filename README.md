@@ -98,7 +98,7 @@ https://react-todo-app-annaprodevs-projects.vercel.app
    npm run dev
    ```
 
-4. Open [http://localhost:5173](http://localhost:3001) in your browser
+4. Open [http://localhost:3001](http://localhost:3001) in your browser
 
 
 ---
