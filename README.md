@@ -33,7 +33,7 @@ https://react-todo-app-annaprodevs-projects.vercel.app
 - Key features  
 - Technologies used
   
-<img src="https://github.com/user-attachments/assets/5facb79b-fe86-44d0-bea2-9baf7b088475"
+<img src="https://github.com/user-attachments/assets/16b039f5-e5c5-49ab-b587-85d6aab41c8a"
      alt="Todo App - About page"
      width="600" />
 ---
@@ -43,7 +43,7 @@ https://react-todo-app-annaprodevs-projects.vercel.app
 - Filter, sort and search tasks  
 - Add, update, delete and complete todos  
 
-<img src="https://github.com/user-attachments/assets/caffba03-b671-478e-bba1-3fcbe2c2f92b"
+<img src="https://github.com/user-attachments/assets/9929c160-828d-499c-a491-560f87b7d3ef"
      alt="Todo App - Todos page"
      width="600" />
 ---
@@ -98,7 +98,7 @@ https://react-todo-app-annaprodevs-projects.vercel.app
    npm run dev
    ```
 
-4. Open [http://localhost:5173](http://localhost:3001) in your browser
+4. Open [http://localhost:3001](http://localhost:3001) in your browser
 
 
 ---
