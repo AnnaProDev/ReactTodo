@@ -84,6 +84,7 @@ function LoginPage() {
 							type="email"
 							id="email"
 							name="email"
+							autoComplete="username"
 							maxLength={LIMITS.email}
 							value={email}
 							onChange={(event) => {
@@ -103,6 +104,7 @@ function LoginPage() {
 							maxLength={LIMITS.password}
 							name="password"
 							id="password"
+							autoComplete="current-password"
 							value={password}
 							onChange={(event) => {
 								setPassword(event.target.value);
