@@ -11,7 +11,7 @@ import SortBy from "../shared/SortBy.jsx";
 import useDebounce from "../utils/useDebounce.js";
 import FilterInput from "../shared/FilterInput.jsx";
 import StatusFilter from "../shared/StatusFilter.jsx";
-import { useAuth} from "../contexts/AuthContext.jsx";
+import { useAuth } from "../contexts/AuthContext.jsx";
 import Loading from "../shared/Loading.jsx";
 import clsx from "clsx";
 import controls from "../shared/styles/controls.module.css";
@@ -63,10 +63,7 @@ const TodosPage = () => {
 
 				const response = await fetch(`${baseUrl}/tasks?${params}`, {
 					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						Accept: "application/json",
-					},
+					headers: { "X-CSRF-TOKEN": token },
 					credentials: "include",
 				});
 
@@ -110,7 +107,7 @@ const TodosPage = () => {
 			}
 		}
 
-		if (baseUrl) fetchTodos();
+		if (token) fetchTodos();
 	}, [token, baseUrl, sortBy, sortDirection, debouncedFilterTerm]);
 
 	async function addTodo(title) {
@@ -349,7 +346,7 @@ const TodosPage = () => {
 					<TodoForm onAddTodo={addTodo} />
 				</div>
 			</section>
-
+			
 			{error && (
 				<div className={styles.alert}>
 					<div className={styles.alertText}>{error}</div>
