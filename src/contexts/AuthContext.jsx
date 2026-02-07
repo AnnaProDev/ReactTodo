@@ -16,6 +16,7 @@ export function useAuth() {
 	return context;
 }
 
+
 export function AuthProvider({ children }) {
 	// Persist authentication state across page reloads
 	const [email, setEmail] = useState(localStorage.getItem("auth_email") ?? "");
